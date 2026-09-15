@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -38,12 +39,12 @@
             }
         }
     </script>
+
     <style>
         body { font-family: 'Kodchasan', 'Prompt', sans-serif; background: linear-gradient(135deg, #FFFDF5 0%, #FFF8D6 100%); color: #4A4A4A; }
         .pastel-shadow { box-shadow: 0 8px 30px -4px rgba(255, 193, 7, 0.18); }
         .custom-transition { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* Balanced rounded and playful elements with friendly clarity */
         button, input, textarea, .rounded-3xl, .rounded-2xl {
             border-radius: 1.25rem !important;
         }
@@ -86,7 +87,6 @@
 
         <!-- CUSTOMER: HOME VIEW -->
         <div id="view-customer-home" class="space-y-8">
-            <!-- Alert Notice Banner -->
             <div class="bg-amber-100/90 border-2 border-amber-300 p-4 rounded-3xl flex items-start space-x-3 shadow-md">
                 <div class="text-amber-600 text-2xl mt-0.5"><i class="fa-solid fa-bell animate-bounce"></i></div>
                 <div>
@@ -95,7 +95,6 @@
                 </div>
             </div>
 
-            <!-- Hero Banner -->
             <div class="bg-gradient-to-br from-pastel-200 via-pastel-300 to-pastel-400 rounded-3xl p-6 md:p-12 text-center relative overflow-hidden pastel-shadow border-2 border-amber-200">
                 <div class="absolute -right-10 -bottom-10 text-amber-300/30 text-9xl pointer-events-none">
                     <i class="fa-solid fa-star"></i>
@@ -122,7 +121,6 @@
             <div class="space-y-4">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 px-2">
                     <h3 class="font-extrabold text-xl text-amber-950 font-playful"><i class="fa-solid fa-comments text-amber-500 mr-2"></i> รีวิวความประทับใจจากลูกค้า</h3>
-                    <!-- Filter buttons for Public Reviews -->
                     <div class="flex items-center gap-2">
                         <button onclick="filterPublicReviews('all')" id="pub-filter-all" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-amber-900 text-white shadow-sm custom-transition">ทั้งหมด (<span id="count-all">0</span>)</button>
                         <button onclick="filterPublicReviews('comment')" id="pub-filter-comment" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-amber-900 border border-amber-200 hover:bg-pastel-100 custom-transition">💬 เขียนรีวิว (<span id="count-comment">0</span>)</button>
@@ -130,7 +128,7 @@
                     </div>
                 </div>
                 <div id="public-reviews-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Dynamic Public Reviews will load here -->
+                    <!-- Dynamic Public Reviews -->
                 </div>
             </div>
         </div>
@@ -177,7 +175,7 @@
             </div>
 
             <div id="login-form-fields" class="space-y-4">
-                <!-- Dynamic Inputs depending on 'first' or 'returning' -->
+                <!-- Dynamic Inputs -->
             </div>
 
             <div class="text-center pt-2">
@@ -201,7 +199,6 @@
             </div>
 
             <div class="space-y-5">
-                <!-- Star Rating Picker -->
                 <div class="flex flex-col items-center space-y-2 bg-pastel-50 p-4 rounded-2xl border border-amber-200">
                     <label class="text-xs font-bold text-amber-900">คะแนนความพึงพอใจ</label>
                     <div id="star-rating-container" class="flex space-x-2 text-3xl text-amber-400 cursor-pointer">
@@ -214,7 +211,6 @@
                     <span id="rating-text" class="text-xs font-bold text-amber-800">5 ดาว (ยอดเยี่ยม)</span>
                 </div>
 
-                <!-- Review Text -->
                 <div>
                     <label class="block text-xs font-bold text-amber-900 mb-1.5">ข้อความรีวิว/ความประทับใจ (เว้นว่างได้)</label>
                     <textarea id="review-comment-input" rows="4" placeholder="พิมพ์ความรู้สึกหรือข้อเสนอแนะของคุณที่นี่..." class="w-full px-4 py-3 rounded-2xl border-2 border-amber-200 focus:outline-none focus:border-amber-400 text-sm bg-pastel-50"></textarea>
@@ -242,7 +238,6 @@
                 <div class="text-5xl font-black text-amber-950"><span id="success-points-gained">0</span> <span class="text-xl font-bold text-amber-800">แต้ม</span></div>
             </div>
 
-            <!-- Milestone Alert if >= 10 points -->
             <div id="success-milestone-alert" class="hidden bg-amber-100 border-2 border-amber-400 p-4 rounded-2xl text-amber-950 text-sm font-bold shadow-sm">
                 <i class="fa-solid fa-gift mr-1.5 text-amber-600 text-lg"></i> แต้มสะสมครบ 10 แต้มแล้ว! ในการใช้บริการครั้งถัดไป กรุณาใช้รหัสการใช้บริการอีกครั้ง
             </div>
@@ -254,7 +249,6 @@
 
         <!-- ADMIN DASHBOARD VIEW -->
         <div id="view-admin" class="hidden space-y-6">
-            <!-- Admin Top Navigation Bar -->
             <div class="bg-white rounded-3xl p-4 md:p-6 pastel-shadow border-2 border-pastel-200 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center space-x-3">
                     <div class="bg-amber-900 text-pastel-300 w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold shadow-md">
@@ -265,33 +259,30 @@
                         <p class="text-xs text-amber-800 font-medium">จัดการรหัสคิว กำหนดแต้ม และตรวจสอบข้อมูลระบบ</p>
                     </div>
                 </div>
-                <div class="flex flex-wrap justify-end items-center gap-2 w-full md:w-auto">
+                <div class="flex flex-wrap items-center justify-end gap-2 w-full md:w-auto">
                     <button onclick="openResetModal()" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold px-4 py-2.5 rounded-xl border border-red-200 custom-transition">
                         <i class="fa-solid fa-triangle-exclamation mr-1"></i> รีเซ็ตระบบ
                     </button>
-                    <button onclick="switchView('customer-home')" class="bg-pastel-400 hover:bg-pastel-500 text-amber-950 text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm custom-transition">
-                        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> กลับไปหน้าลูกค้า
+                    <button onclick="adminLogout()" class="bg-pastel-400 hover:bg-pastel-500 text-amber-950 text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm custom-transition">
+                        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> ออกจากระบบ / กลับหน้าลูกค้า
                     </button>
                 </div>
             </div>
 
-            <!-- Admin Tabs Navigation -->
             <div class="flex flex-wrap gap-2 border-b-2 border-pastel-200 pb-3">
-                <button onclick="switchAdminTab('codes')" id="admin-tab-btn-codes" class="px-4.5 py-2.5 text-sm font-bold rounded-2xl bg-amber-900 text-white shadow-md custom-transition font-playful">
+                <button onclick="switchAdminTab('codes')" id="admin-tab-btn-codes" class="px-4 py-2.5 text-sm font-bold rounded-2xl bg-amber-900 text-white shadow-md custom-transition font-playful">
                     <i class="fa-solid fa-ticket mr-1.5"></i> ออกรหัสคิว & กำหนดแต้ม
                 </button>
-                <button onclick="switchAdminTab('points')" id="admin-tab-btn-points" class="px-4.5 py-2.5 text-sm font-bold rounded-2xl bg-white text-amber-900 hover:bg-pastel-100 border border-amber-200 custom-transition font-playful">
+                <button onclick="switchAdminTab('points')" id="admin-tab-btn-points" class="px-4 py-2.5 text-sm font-bold rounded-2xl bg-white text-amber-900 hover:bg-pastel-100 border border-amber-200 custom-transition font-playful">
                     <i class="fa-solid fa-award mr-1.5"></i> แต้มลูกค้า & ประวัติ
                 </button>
-                <button onclick="switchAdminTab('reviews')" id="admin-tab-btn-reviews" class="px-4.5 py-2.5 text-sm font-bold rounded-2xl bg-white text-amber-900 hover:bg-pastel-100 border border-amber-200 custom-transition font-playful">
+                <button onclick="switchAdminTab('reviews')" id="admin-tab-btn-reviews" class="px-4 py-2.5 text-sm font-bold rounded-2xl bg-white text-amber-900 hover:bg-pastel-100 border border-amber-200 custom-transition font-playful">
                     <i class="fa-solid fa-comments mr-1.5"></i> ตรวจสอบรีวิวทั้งหมด
                 </button>
             </div>
 
-            <!-- Admin Tab 1: Queue Codes & Point Setting -->
             <div id="admin-tab-codes" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Create Code Card -->
                     <div class="bg-white rounded-3xl p-6 pastel-shadow border-2 border-pastel-200 space-y-4 h-fit">
                         <h3 class="font-bold text-amber-950 flex items-center font-playful"><i class="fa-solid fa-plus-circle text-amber-500 mr-2"></i> สร้างรหัสคิวใหม่</h3>
                         <p class="text-xs text-amber-800/80 font-medium">ระบบจะสร้างรหัสถัดไปอัตโนมัติ โดยทุกรหัสใหม่จะมี <span class="font-bold text-amber-950">0 แต้ม</span> เสมอตามกฎ</p>
@@ -300,7 +291,6 @@
                         </button>
                     </div>
 
-                    <!-- Codes Table / List -->
                     <div class="md:col-span-2 bg-white rounded-3xl p-6 pastel-shadow border-2 border-pastel-200 space-y-4">
                         <div class="flex justify-between items-center">
                             <h3 class="font-bold text-amber-950 font-playful"><i class="fa-solid fa-list-check text-amber-500 mr-2"></i> รายการรหัสคิวทั้งหมดในระบบ</h3>
@@ -317,7 +307,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="admin-codes-tbody" class="divide-y divide-amber-50">
-                                    <!-- Dynamic Rows -->
                                 </tbody>
                             </table>
                         </div>
@@ -325,7 +314,6 @@
                 </div>
             </div>
 
-            <!-- Admin Tab 2: Customer Points & History -->
             <div id="admin-tab-points" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 pastel-shadow border-2 border-pastel-200 space-y-4">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -354,14 +342,12 @@
                                 </tr>
                             </thead>
                             <tbody id="admin-points-tbody" class="divide-y divide-amber-50">
-                                <!-- Dynamic Rows -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- Admin Tab 3: All Reviews -->
             <div id="admin-tab-reviews" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 pastel-shadow border-2 border-pastel-200 space-y-4">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
@@ -369,7 +355,6 @@
                             <h3 class="font-bold text-amber-950 font-playful"><i class="fa-solid fa-comments text-amber-500 mr-2"></i> รายการรีวิวทั้งหมดในระบบ</h3>
                             <span id="admin-review-count" class="text-xs bg-pastel-200 text-amber-900 font-bold px-3 py-1 rounded-full">0 รีวิว</span>
                         </div>
-                        <!-- Filter buttons for Admin Reviews -->
                         <div class="flex items-center gap-2">
                             <button onclick="filterAdminReviews('all')" id="admin-filter-all" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-amber-900 text-white shadow-sm custom-transition">ทั้งหมด (<span id="admin-count-all">0</span>)</button>
                             <button onclick="filterAdminReviews('comment')" id="admin-filter-comment" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-amber-900 border border-amber-200 hover:bg-pastel-100 custom-transition">💬 เขียนรีวิว (<span id="admin-count-comment">0</span>)</button>
@@ -377,19 +362,19 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="admin-reviews-container">
-                        <!-- Dynamic Admin Reviews -->
                     </div>
                 </div>
             </div>
         </div>
 
     </main>
+
     <footer class="bg-white/80 border-t-2 border-pastel-200 mt-12 py-6 text-center text-xs text-amber-800 font-medium space-y-2">
         <p>ติดต่อสอบถามเพิ่มเติม / แจ้งปัญหาการใช้งานผ่าน LINE OA: <a href="https://lin.ee/5WwCcNQ" target="_blank" class="text-emerald-700 font-bold hover:underline"><i class="fa-brands fa-line mr-0.5"></i> @655ayoko</a> 💚</p>
         <p>JUMBOOSHOP Point Accumulation & Store Review System &copy; 2026. All rights reserved. 🍯</p>
     </footer>
 
-    <!-- MODAL: Admin Login -->
+    <!-- MODAL: Admin Supabase Auth Login -->
     <div id="modal-admin-login" class="fixed inset-0 bg-amber-950/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-pastel-200">
             <div class="text-center space-y-1">
@@ -397,12 +382,13 @@
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <h3 class="font-extrabold text-lg text-amber-950 font-playful">เข้าสู่ระบบผู้ดูแลระบบ</h3>
-                <p class="text-xs text-amber-800 font-medium">กรุณากรอกรหัสผ่านแอดมิน (รหัส: 1234)</p>
+                <p class="text-xs text-amber-800 font-medium">กรอกอีเมลและรหัสผ่าน Supabase ของแอดมิน</p>
             </div>
-            <div>
-                <input type="password" id="admin-pass-input" placeholder="รหัสผ่าน 4 หลัก (1234)" class="w-full px-4 py-3.5 rounded-2xl border-2 border-amber-200 focus:outline-none focus:border-amber-400 text-center text-xl font-mono tracking-widest bg-pastel-50 font-bold">
+            <div class="space-y-3">
+                <input type="email" id="admin-email-input" placeholder="อีเมลแอดมิน" class="w-full px-4 py-3 rounded-2xl border-2 border-amber-200 focus:outline-none focus:border-amber-400 text-sm bg-pastel-50 font-medium">
+                <input type="password" id="admin-pass-input" placeholder="รหัสผ่านแอดมิน" class="w-full px-4 py-3 rounded-2xl border-2 border-amber-200 focus:outline-none focus:border-amber-400 text-center text-lg font-mono tracking-widest bg-pastel-50 font-bold">
             </div>
-            <div class="flex space-x-2">
+            <div class="flex space-x-2 pt-2">
                 <button onclick="closeAdminLoginModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
                 <button onclick="verifyAdminLogin()" class="flex-1 bg-pastel-400 hover:bg-pastel-500 text-amber-950 font-extrabold py-3 rounded-xl text-sm shadow-md custom-transition font-playful">เข้าสู่ระบบ</button>
             </div>
@@ -420,7 +406,7 @@
                 <p class="text-xs text-amber-800 font-medium">รหัสคิว: <span id="modal-target-code" class="font-mono font-extrabold text-amber-950"></span></p>
             </div>
             <div>
-                <label class="block text-xs font-bold text-amber-900 mb-1">จำนวนแต้มที่ต้องการกำหนดตรง ๆ (ห้าม +1 หรือ -1 เพิ่มเติม)</label>
+                <label class="block text-xs font-bold text-amber-900 mb-1">จำนวนแต้มที่ต้องการกำหนดตรง ๆ</label>
                 <input type="number" id="modal-points-input" min="0" placeholder="ตัวอย่าง: 5 หรือ 10" class="w-full px-4 py-3.5 rounded-2xl border-2 border-amber-200 focus:outline-none focus:border-amber-400 text-center text-2xl font-black bg-pastel-50">
             </div>
             <div class="flex space-x-2">
@@ -437,7 +423,7 @@
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 class="font-extrabold text-lg text-amber-950 font-playful">ยืนยันการลบประวัติทั้งหมด</h3>
-            <p class="text-xs text-amber-800 font-medium">การดำเนินการนี้จะล้างประวัติการทำรายการและแต้มสะสมทั้งหมดในระบบ แต่จะไม่ทำให้กฎลำดับการรันรหัสคิวผิดเพี้ยน คุณต้องการดำเนินการต่อหรือไม่?</p>
+            <p class="text-xs text-amber-800 font-medium">การดำเนินการนี้จะล้างประวัติการทำรายการและแต้มสะสมทั้งหมดในระบบ คุณต้องการดำเนินการต่อหรือไม่?</p>
             <div class="flex space-x-2 pt-2">
                 <button onclick="closeClearHistoryModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
                 <button onclick="confirmClearHistory()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl text-sm shadow-md custom-transition">ยืนยันลบประวัติ</button>
@@ -445,7 +431,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Reset System with Password 1234 -->
+    <!-- MODAL: Reset System with Admin Auth -->
     <div id="modal-reset-system" class="fixed inset-0 bg-amber-950/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-pastel-200">
             <div class="text-center space-y-1">
@@ -453,10 +439,10 @@
                     <i class="fa-solid fa-power-off"></i>
                 </div>
                 <h3 class="font-extrabold text-lg text-amber-950 font-playful">ยืนยันการรีเซ็ตข้อมูลระบบ</h3>
-                <p class="text-xs text-amber-800 font-medium">กรุณากรอกรหัสผ่านแอดมิน (1234) เพื่อล้างข้อมูลทั้งหมดในระบบ</p>
+                <p class="text-xs text-amber-800 font-medium">ยืนยันรหัสผ่านแอดมินเพื่อล้างข้อมูลทั้งหมดในฐานข้อมูล</p>
             </div>
             <div>
-                <input type="password" id="reset-pass-input" placeholder="รหัสผ่าน 1234" class="w-full px-4 py-3.5 rounded-2xl border-2 border-red-200 focus:outline-none focus:border-red-500 text-center text-xl font-mono tracking-widest bg-pastel-50 font-bold">
+                <input type="password" id="reset-pass-input" placeholder="รหัสผ่านแอดมิน" class="w-full px-4 py-3.5 rounded-2xl border-2 border-red-200 focus:outline-none focus:border-red-500 text-center text-xl font-mono tracking-widest bg-pastel-50 font-bold">
             </div>
             <div class="flex space-x-2">
                 <button onclick="closeResetModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
@@ -503,7 +489,9 @@
         async function loadDataFromSupabase() {
             try {
                 // Fetch codes
-                const { data: codes, error: errCodes } = await supabaseClient.from('queue_codes').select('*');
+                const { data: codes, error: errCodes } = await supabaseClient.from('queue_codes').select('*').order('created_at', { ascending: true });
+                if (errCodes) console.error("Database Error (Codes):", errCodes);
+                
                 if (!errCodes && codes) {
                     codesData = codes.map(c => ({
                         id: c.id,
@@ -519,10 +507,16 @@
                     }, 0);
                 }
 
-                // Fetch transactions
-                const { data: txs, error: errTxs } = await supabaseClient.from('transactions').select('*, main_code:queue_codes!transactions_main_code_id_fkey(code), current_code:queue_codes!transactions_current_code_id_fkey(code)');
+                // Fetch transactions - แก้ไขชื่อ Foreign key เป็นแบบระบุชื่อ column ป้องกัน Error กรณี constraint ชื่อเปลี่ยน
+                const { data: txs, error: errTxs } = await supabaseClient.from('transactions')
+                    .select('*, main_code:queue_codes!main_code_id(code), current_code:queue_codes!current_code_id(code)')
+                    .order('created_at', { ascending: false });
+                
+                if (errTxs) console.error("Database Error (Transactions):", errTxs);
+
                 if (!errTxs && txs) {
                     transactionsData = txs.map(t => ({
+                        id: t.id,
                         mainCode: t.main_code ? t.main_code.code : '',
                         currentCode: t.current_code ? t.current_code.code : '',
                         pointsGained: t.points_gained,
@@ -531,8 +525,13 @@
                     }));
                 }
 
-                // Fetch reviews
-                const { data: revs, error: errRevs } = await supabaseClient.from('reviews').select('*, queue_code:queue_codes!reviews_queue_code_id_fkey(code), main_code:queue_codes!reviews_main_code_id_fkey(code)');
+                // Fetch reviews - แก้ไขชื่อ Foreign key เป็นแบบระบุชื่อ column เพื่อความปลอดภัย
+                const { data: revs, error: errRevs } = await supabaseClient.from('reviews')
+                    .select('*, queue_code:queue_codes!queue_code_id(code), main_code:queue_codes!main_code_id(code)')
+                    .order('created_at', { ascending: false });
+                
+                if (errRevs) console.error("Database Error (Reviews):", errRevs);
+
                 if (!errRevs && revs) {
                     reviewsData = revs.map(r => ({
                         id: r.id,
@@ -681,6 +680,11 @@
                 return;
             }
 
+            if (record.isReviewed) {
+                showMessage("แจ้งเตือน", "รหัสคิวนี้เคยถูกใช้งานและรีวิวไปแล้ว โปรดติดต่อแอดมินหากมีข้อสงสัย", "error");
+                return;
+            }
+
             currentSession.mainCode = record.code;
             currentSession.currentCode = record.code;
             currentSession.pointsToAdd = record.assignedPoints;
@@ -771,13 +775,15 @@
             const pointsToAdd = currRec.assignedPoints;
             const newTotalPoints = mainRec.totalAccumulatedPoints + pointsToAdd;
 
-            // 1. อัปเดต is_reviewed ของ current code
-            await supabaseClient.from('queue_codes').update({ is_reviewed: true }).eq('id', currRec.id);
+            // Update queue code status
+            if (currRec.id === mainRec.id) {
+                await supabaseClient.from('queue_codes').update({ is_reviewed: true, total_accumulated_points: newTotalPoints }).eq('id', currRec.id);
+            } else {
+                await supabaseClient.from('queue_codes').update({ is_reviewed: true }).eq('id', currRec.id);
+                await supabaseClient.from('queue_codes').update({ total_accumulated_points: newTotalPoints }).eq('id', mainRec.id);
+            }
 
-            // 2. อัปเดต total_accumulated_points ของ main code
-            await supabaseClient.from('queue_codes').update({ total_accumulated_points: newTotalPoints }).eq('id', mainRec.id);
-
-            // 3. บันทึก Transaction
+            // Insert transaction
             await supabaseClient.from('transactions').insert({
                 main_code_id: mainRec.id,
                 current_code_id: currRec.id,
@@ -785,12 +791,13 @@
                 total_accumulated: newTotalPoints
             });
 
-            // 4. บันทึก Review
+            // Insert review
             await supabaseClient.from('reviews').insert({
                 queue_code_id: currRec.id,
                 main_code_id: mainRec.id,
                 rating: currentReviewRating,
-                comment: hasComment ? comment : null
+                comment: hasComment ? comment : null,
+                has_comment: hasComment
             });
 
             await loadDataFromSupabase();
@@ -891,52 +898,83 @@
         }
 
         function openAdminLoginModal() {
+            document.getElementById('admin-email-input').value = '';
             document.getElementById('admin-pass-input').value = '';
             document.getElementById('modal-admin-login').classList.remove('hidden');
         }
         function closeAdminLoginModal() {
             document.getElementById('modal-admin-login').classList.add('hidden');
         }
-        function verifyAdminLogin() {
-            const pass = document.getElementById('admin-pass-input').value;
-            if (pass === '1234') {
-                closeAdminLoginModal();
-                switchView('admin');
-            } else {
-                showMessage("แจ้งเตือน", "รหัสผ่านแอดมินไม่ถูกต้อง (รหัสคือ 1234)", "error");
+
+        async function verifyAdminLogin() {
+            const email = document.getElementById('admin-email-input').value.trim();
+            const password = document.getElementById('admin-pass-input').value;
+
+            if (!email || !password) {
+                showMessage("แจ้งเตือน", "กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน", "error");
+                return;
             }
+
+            // Sign in using Supabase Auth
+            const { data: authData, error: authError } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (authError || !authData.user) {
+                showMessage("แจ้งเตือน", "อีเมลหรือรหัสผ่านไม่ถูกต้อง", "error");
+                return;
+            }
+
+            // Check if user is in 'admins' table
+            const { data: adminData, error: adminError } = await supabaseClient
+                .from('admins')
+                .select('*')
+                .eq('user_id', authData.user.id)
+                .single();
+
+            if (adminError || !adminData) {
+                // If logged in but not an admin, sign out immediately
+                await supabaseClient.auth.signOut();
+                showMessage("แจ้งเตือน", "บัญชีนี้ไม่มีสิทธิ์เข้าถึงระบบผู้ดูแลระบบ", "error");
+                return;
+            }
+
+            closeAdminLoginModal();
+            switchView('admin');
+        }
+
+        async function adminLogout() {
+            await supabaseClient.auth.signOut();
+            switchView('customer-home');
+            showMessage("สำเร็จ", "ออกจากระบบเรียบร้อยแล้ว", "success");
         }
 
         function switchAdminTab(tabName) {
             const tabs = ['codes', 'points', 'reviews'];
             tabs.forEach(t => {
                 document.getElementById(`admin-tab-${t}`).classList.add('hidden');
-                document.getElementById(`admin-tab-btn-${t}`).className = "px-4.5 py-2.5 text-sm font-bold rounded-2xl bg-white text-amber-900 hover:bg-pastel-100 border border-amber-200 custom-transition";
+                document.getElementById(`admin-tab-btn-${t}`).className = "px-4 py-2.5 text-sm font-bold rounded-2xl bg-white text-amber-900 hover:bg-pastel-100 border border-amber-200 custom-transition font-playful";
             });
 
             document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`admin-tab-btn-${tabName}`).className = "px-4.5 py-2.5 text-sm font-bold rounded-2xl bg-amber-900 text-white shadow-md custom-transition font-playful";
+            document.getElementById(`admin-tab-btn-${tabName}`).className = "px-4 py-2.5 text-sm font-bold rounded-2xl bg-amber-900 text-white shadow-md custom-transition font-playful";
         }
 
         async function adminGenerateCode() {
-            codeCounter++;
-            const newCodeStr = `JB${String(codeCounter).padStart(4, '0')}-Q`;
-            
-            if (codesData.some(c => c.code === newCodeStr)) {
+            let newCodeStr;
+            do {
                 codeCounter++;
-                adminGenerateCode();
-                return;
-            }
+                newCodeStr = `JB${String(codeCounter).padStart(4, '0')}-Q`;
+            } while (codesData.some(c => c.code === newCodeStr));
 
+            // Insert new code into DB
             const { error } = await supabaseClient.from('queue_codes').insert({
-                code: newCodeStr,
-                assigned_points: 0,
-                is_reviewed: false,
-                total_accumulated_points: 0
+                code: newCodeStr
             });
 
             if (error) {
-                showMessage("แจ้งเตือน", "ไม่สามารถสร้างรหัสคิวได้ (กรุณาตรวจสอบสิทธิ์การใช้งานแอดมิน)", "error");
+                showMessage("แจ้งเตือน", "ไม่สามารถสร้างรหัสคิวได้ (กรุณาตรวจสอบสิทธิ์แอดมิน)", "error");
                 return;
             }
 
@@ -1002,6 +1040,7 @@
             document.getElementById('modal-set-points').classList.add('hidden');
             selectedCodeForPoints = null;
         }
+        
         async function saveAdminPoints() {
             const val = parseInt(document.getElementById('modal-points-input').value);
             if (isNaN(val) || val < 0) {
@@ -1057,10 +1096,12 @@
         function closeClearHistoryModal() {
             document.getElementById('modal-clear-history').classList.add('hidden');
         }
+        
         async function confirmClearHistory() {
-            await supabaseClient.from('transactions').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-            await supabaseClient.from('reviews').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-            await supabaseClient.from('queue_codes').update({ total_accumulated_points: 0, is_reviewed: false }).neq('id', '00000000-0000-0000-0000-000000000000');
+            // Delete operations requires a filter, using a condition that matches all existing rows securely
+            await supabaseClient.from('transactions').delete().not('id', 'is', null);
+            await supabaseClient.from('reviews').delete().not('id', 'is', null);
+            await supabaseClient.from('queue_codes').update({ total_accumulated_points: 0, is_reviewed: false }).not('id', 'is', null);
 
             await loadDataFromSupabase();
             closeClearHistoryModal();
@@ -1146,20 +1187,35 @@
         function closeResetModal() {
             document.getElementById('modal-reset-system').classList.add('hidden');
         }
+        
         async function confirmResetSystem() {
-            const pass = document.getElementById('reset-pass-input').value;
-            if (pass === '1234') {
-                await supabaseClient.from('transactions').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-                await supabaseClient.from('reviews').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-                await supabaseClient.from('queue_codes').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+            const password = document.getElementById('reset-pass-input').value;
+            const { data: { user } } = await supabaseClient.auth.getUser();
 
-                await loadDataFromSupabase();
-                closeResetModal();
-                switchView('customer-home');
-                showMessage("สำเร็จ", "รีเซ็ตข้อมูลระบบทั้งหมดเรียบร้อยแล้ว", "success");
-            } else {
-                showMessage("แจ้งเตือน", "รหัสผ่านแอดมินไม่ถูกต้องสำหรับการรีเซ็ตระบบ (รหัสคือ 1234)", "error");
+            if (!user) {
+                showMessage("แจ้งเตือน", "กรุณายืนยันตัวตนด้วยบัญชีแอดมินก่อนรีเซ็ตระบบ", "error");
+                return;
             }
+
+            // Re-authenticate admin to confirm destructive action
+            const { error: signInErr } = await supabaseClient.auth.signInWithPassword({
+                email: user.email,
+                password: password
+            });
+
+            if (signInErr) {
+                showMessage("แจ้งเตือน", "รหัสผ่านแอดมินไม่ถูกต้อง", "error");
+                return;
+            }
+
+            await supabaseClient.from('transactions').delete().not('id', 'is', null);
+            await supabaseClient.from('reviews').delete().not('id', 'is', null);
+            await supabaseClient.from('queue_codes').delete().not('id', 'is', null);
+
+            await loadDataFromSupabase();
+            closeResetModal();
+            switchView('customer-home');
+            showMessage("สำเร็จ", "รีเซ็ตข้อมูลระบบทั้งหมดเรียบร้อยแล้ว", "success");
         }
 
         window.onload = async function() {
