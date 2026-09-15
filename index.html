@@ -513,7 +513,6 @@
                         totalAccumulatedPoints: c.total_accumulated_points
                     }));
                     
-                    // คำนวณ codeCounter จากรหัสที่มีอยู่
                     codeCounter = codesData.reduce((max, c) => {
                         const num = parseInt(c.code.replace('JB', '').replace('-Q', '')) || 0;
                         return num > max ? num : max;
@@ -937,7 +936,7 @@
             });
 
             if (error) {
-                showMessage("แจ้งเตือน", "ไม่สามารถสร้างรหัสคิวได้ (คุณต้องเข้าสู่ระบบแอดมินใน Supabase ก่อน)", "error");
+                showMessage("แจ้งเตือน", "ไม่สามารถสร้างรหัสคิวได้ (กรุณาตรวจสอบสิทธิ์การใช้งานแอดมิน)", "error");
                 return;
             }
 
@@ -983,7 +982,7 @@
         async function deleteCodeItem(codeId) {
             const { error } = await supabaseClient.from('queue_codes').delete().eq('id', codeId);
             if (error) {
-                showMessage("แจ้งเตือน", "ไม่สามารถลบรหัสได้เนื่องจากติดสิทธิ์ RLS (ต้องล็อกอินใน Supabase)", "error");
+                showMessage("แจ้งเตือน", "ไม่สามารถลบรหัสได้", "error");
                 return;
             }
 
@@ -1014,7 +1013,7 @@
             if (rec) {
                 const { error } = await supabaseClient.from('queue_codes').update({ assigned_points: val }).eq('id', rec.id);
                 if (error) {
-                    showMessage("แจ้งเตือน", "ไม่สามารถบันทึกแต้มได้ (ต้องล็อกอินแอดมินใน Supabase)", "error");
+                    showMessage("แจ้งเตือน", "ไม่สามารถบันทึกแต้มได้", "error");
                     return;
                 }
 
