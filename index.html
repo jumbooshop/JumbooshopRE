@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUMBOOSHOP - ระบบสะสมแต้มและรีวิวร้านค้า</title>
-    <meta property="og:title" content="JUMBOOSHOP - ระบบสะสมแต้มและรีวิวร้านค้า">
-    <meta property="og:description" content="ระบบสะสมแต้มและรีวิวสุดน่ารัก เช็คเครดิตและรับสิทธิพิเศษมากมาย">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Kodchasan & Prompt for a playful, friendly and cute typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase JS Client -->
@@ -21,31 +19,21 @@
                 extend: {
                     colors: {
                         pastel: {
-                            50: '#FFFdf7', // Very light cream/yellow
-                            100: '#FFF9E6', // Light cream
-                            200: '#FFF2C2', // Soft pastel yellow
-                            300: '#FFE68A', // Warm yellow
-                            400: '#FFD647', // Primary cute yellow
-                            500: '#FFC107', // Original yellow
-                            600: '#E5A800',
-                            700: '#B38100',
-                            800: '#8A5A00', // Brown text
-                            900: '#5C3800', // Dark brown text
-                        },
-                        cream: {
-                            50: '#FFFAF0',
-                            100: '#FFF3E0',
+                            50: '#FCF9F2',
+                            100: '#FFFBE6',
+                            200: '#FFF3B0',
+                            300: '#F4C760',
+                            400: '#F4C760',
+                            500: '#e0b450',
+                            600: '#e0b450',
+                            700: '#FFA000',
+                            800: '#543B32',
                         }
                     },
                     fontFamily: {
                         sans: ['Kodchasan', 'Prompt', 'sans-serif'],
                         prompt: ['Prompt', 'sans-serif'],
                         playful: ['Kodchasan', 'Prompt', 'sans-serif']
-                    },
-                    boxShadow: {
-                        'cute': '0 10px 25px -5px rgba(255, 214, 71, 0.3), 0 8px 10px -6px rgba(255, 214, 71, 0.1)',
-                        'cute-inner': 'inset 0 2px 4px 0 rgba(255, 214, 71, 0.06)',
-                        'card': '0 4px 20px -2px rgba(138, 90, 0, 0.05)',
                     }
                 }
             }
@@ -53,63 +41,96 @@
     </script>
 
     <style>
+        :root {
+            --primary-color: #F4C760; /* สีเหลืองทองพาสเทลสำหรับปุ่ม */
+            --primary-hover: #e0b450; 
+            --bg-color: #FCF9F2; /* สีพื้นหลังครีมอ่อน */
+            --card-bg: #FFFFFF; /* สีกล่อง/พื้นหลังส่วนเนื้อหา */
+            --text-main: #543B32; /* สีตัวอักษรเป็นสีน้ำตาลเข้ม */
+        }
+
         body { 
             font-family: 'Kodchasan', 'Prompt', sans-serif; 
-            /* Soft cream/yellow gradient background */
-            background: linear-gradient(135deg, #FFFAF0 0%, #FFFdf7 100%); 
-            background-image: radial-gradient(#FFE68A 1px, transparent 1px);
-            background-size: 40px 40px;
-            color: #5C3800; 
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            background-image: radial-gradient(#d3c5b3 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            overflow-x: hidden; 
+            position: relative; 
         }
-        .pastel-shadow { box-shadow: 0 8px 30px -4px rgba(255, 214, 71, 0.25); }
-        .custom-transition { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .pastel-shadow { box-shadow: 0 8px 30px -4px rgba(84, 59, 50, 0.08); }
+        .custom-transition { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
         
         button, input, textarea, .rounded-3xl, .rounded-2xl {
-            border-radius: 1.5rem !important; /* Slightly more rounded for cuteness */
+            border-radius: 1.25rem !important;
         }
         button:hover {
-            transform: translateY(-3px) scale(1.02);
+            transform: translateY(-2px) scale(1.01);
         }
         button:active {
             transform: translateY(1px) scale(0.98);
         }
-        
-        /* Floating animation for decorative elements */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+
+        /* Twinkling Falling Particles (Sparkles) */
+        @keyframes twinkleFloat {
+            0% { transform: translateY(0px) scale(0.8) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) scale(1.2) rotate(180deg); opacity: 0.9; }
+            100% { transform: translateY(0px) scale(0.8) rotate(360deg); opacity: 0.3; }
         }
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        .animate-float-delayed { animation: float 4.5s ease-in-out 1s infinite; }
-        
-        /* Custom scrollbar for cuteness */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #FFF9E6; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #FFE68A; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FFD647; }
+        .sparkle-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: twinkleFloat ease-in-out infinite;
+        }
+
+        /* Subtle mouse follower light */
+        #mouse-follower {
+            position: fixed;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(244,199,96,0.18) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            transition: width 0.2s, height 0.2s;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between">
 
-    <header class="bg-white/80 backdrop-blur-xl sticky top-0 z-50 border-b-2 border-pastel-200/50 shadow-sm">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div id="mouse-follower"></div>
+
+    <!-- Background Audio Loop matching exact user filename -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="Sunlight_On_The_Threshold.mp3" type="audio/mpeg">
+    </audio>
+
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-[#ebdcca] shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchView('customer-home')">
-                <div class="bg-gradient-to-br from-pastel-300 to-pastel-400 w-12 h-12 rounded-2xl flex items-center justify-center text-pastel-900 font-bold text-xl shadow-cute group-hover:rotate-12 custom-transition relative">
-                    <i class="fa-solid fa-gift"></i>
-                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full border-2 border-white animate-pulse"></div>
+                <div class="bg-[#F4C760] w-11 h-11 rounded-2xl flex items-center justify-center text-[#543B32] font-bold text-xl shadow-md group-hover:rotate-12 custom-transition">
+                    <i class="fa-solid fa-store"></i>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-xl text-pastel-900 tracking-tight font-playful group-hover:text-amber-600 custom-transition">JUMBOOSHOP</h1>
-                    <p class="text-[10px] text-pastel-700 font-prompt tracking-wider uppercase font-bold bg-pastel-100 px-2 py-0.5 rounded-md inline-block mt-0.5">Rewards & Reviews</p>
+                    <h1 class="font-extrabold text-lg text-[#543B32] tracking-tight font-playful">JUMBOOSHOP 💛</h1>
+                    <p class="text-xs text-[#543B32]/70 font-prompt">ระบบสะสมแต้มและรีวิวสุดน่ารัก</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2">
-                <button onclick="switchView('customer-home')" class="px-4 py-2 text-sm font-bold rounded-2xl hover:bg-pastel-100 text-pastel-800 custom-transition hidden sm:block">
+            <div class="flex items-center space-x-2.5">
+                <!-- Music Toggle Button -->
+                <button onclick="toggleBackgroundMusic()" id="music-toggle-btn" class="bg-[#FFFBE6] hover:bg-[#FFF3B0] text-[#543B32] text-sm font-bold px-3 py-2 rounded-xl border border-[#F4C760] custom-transition flex items-center shadow-xs" title="เปิด/ปิดเพลง">
+                    <i id="music-icon" class="fa-solid fa-volume-xmark mr-1.5 text-[#543B32]"></i> <span id="music-text" class="text-xs">เปิดเพลง</span>
+                </button>
+                <a href="https://lin.ee/5WwCcNQ" target="_blank" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-bold px-3.5 py-2 rounded-xl border border-emerald-200 custom-transition flex items-center">
+                    <i class="fa-brands fa-line mr-1 text-emerald-600"></i> @655ayoko
+                </a>
+                <button onclick="switchView('customer-home')" class="px-3.5 py-2 text-sm font-semibold rounded-xl hover:bg-[#FFF3B0]/40 text-[#543B32] custom-transition">
                     <i class="fa-solid fa-house mr-1"></i> หน้าหลัก
                 </button>
-                <button onclick="openAdminLoginModal()" class="w-10 h-10 flex items-center justify-center bg-white hover:bg-pastel-50 text-pastel-700 text-sm font-bold rounded-2xl border-2 border-pastel-200 shadow-sm custom-transition" title="ผู้ดูแลระบบ">
-                    <i class="fa-solid fa-gear"></i>
+                <button onclick="openAdminLoginModal()" class="bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] text-sm font-bold px-4 py-2 rounded-xl shadow-sm custom-transition">
+                    <i class="fa-solid fa-lock mr-1"></i> ผู้ดูแลระบบ
                 </button>
             </div>
         </div>
@@ -118,379 +139,227 @@
     <main class="max-w-5xl w-full mx-auto px-4 py-8 flex-grow relative z-10">
 
         <!-- CUSTOMER: HOME VIEW -->
-        <div id="view-customer-home" class="space-y-12">
-            
-            <!-- Hero Banner -->
-            <div class="bg-gradient-to-br from-white via-pastel-50 to-pastel-100 rounded-[2.5rem] p-8 md:p-14 text-center relative overflow-hidden shadow-card border-4 border-white">
-                <!-- Decorative Elements -->
-                <div class="absolute top-8 left-8 text-pastel-300 text-4xl animate-float opacity-70">
+        <div id="view-customer-home" class="space-y-8">
+            <div class="bg-[#FFFBE6]/90 border-2 border-[#F4C760] p-4 rounded-3xl flex items-start space-x-3 shadow-md">
+                <div class="text-[#543B32] text-2xl mt-0.5"><i class="fa-solid fa-bell animate-bounce"></i></div>
+                <div>
+                    <h3 class="font-bold text-[#543B32] text-base font-playful">ประกาศสำคัญจากทางร้าน 🍯</h3>
+                    <p class="text-[#543B32] text-sm mt-0.5 font-medium">“เมื่อสะสมครบ 10 แต้มแล้ว ในการใช้บริการครั้งถัดไป กรุณาใช้รหัสการใช้บริการอีกครั้ง”</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-[#FFF3B0] via-[#F4C760] to-[#e0b450] rounded-3xl p-6 md:p-12 text-center relative overflow-hidden pastel-shadow border-2 border-[#F4C760]/60">
+                <div class="absolute -right-10 -bottom-10 text-[#543B32]/10 text-9xl pointer-events-none">
                     <i class="fa-solid fa-star"></i>
                 </div>
-                <div class="absolute bottom-10 right-10 text-pastel-200 text-6xl animate-float-delayed opacity-60">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-pastel-300/20 rounded-full blur-3xl"></div>
-                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-amber-200/20 rounded-full blur-3xl"></div>
-
-                <div class="relative z-10 max-w-2xl mx-auto space-y-6">
-                    <div class="inline-flex items-center justify-center space-x-2 bg-white text-pastel-800 text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest shadow-sm border border-pastel-100 font-playful mb-2">
-                        <i class="fa-solid fa-crown text-pastel-400"></i>
-                        <span>JUMBOOSHOP REWARDS</span>
-                    </div>
+                <div class="relative z-10 max-w-xl mx-auto space-y-4">
+                    <span class="bg-white/90 text-[#543B32] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm font-playful">✨ JUMBOOSHOP REWARDS ✨</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-[#543B32] tracking-wide font-playful">เช็คเครดิตและสะสมแต้ม</h2>
+                    <p class="text-[#543B32] text-base md:text-lg font-medium">เมื่อสะสมแต้มครบ สามารถเลือกรับ…ได้เลยย</p>
                     
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pastel-900 tracking-tight font-playful leading-tight">
-                        สะสมแต้ม <br class="md:hidden">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-pastel-600 to-amber-500">รับสิทธิพิเศษ</span>
-                    </h2>
-                    
-                    <p class="text-pastel-700 text-base md:text-lg font-medium max-w-lg mx-auto bg-white/50 backdrop-blur-sm p-4 rounded-3xl border border-white">
-                        ใช้บริการ <i class="fa-solid fa-arrow-right text-pastel-400 text-xs mx-1"></i> รีวิว <i class="fa-solid fa-arrow-right text-pastel-400 text-xs mx-1"></i> รับแต้ม <i class="fa-solid fa-arrow-right text-pastel-400 text-xs mx-1"></i> แลกของรางวัลสุดคิ้วท์
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row justify-center gap-4 pt-6">
-                        <button onclick="startServiceFlow('first')" class="group relative overflow-hidden bg-pastel-900 text-white font-bold px-8 py-4 rounded-3xl shadow-cute custom-transition font-playful text-lg flex items-center justify-center">
-                            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
-                            <span class="relative z-10 flex items-center"><i class="fa-solid fa-hand-sparkles mr-2 text-pastel-300 text-xl group-hover:animate-bounce"></i> ใช้บริการครั้งแรก</span>
+                    <div class="flex flex-wrap justify-center gap-3 pt-3">
+                        <button onclick="startServiceFlow('first')" class="bg-[#543B32] hover:bg-[#432d26] text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg custom-transition font-playful">
+                            <i class="fa-solid fa-user-plus mr-2"></i> ใช้บริการครั้งแรก
                         </button>
-                        <button onclick="startServiceFlow('returning')" class="group bg-white hover:bg-pastel-50 text-pastel-900 font-bold px-8 py-4 rounded-3xl border-2 border-pastel-200 shadow-sm custom-transition font-playful text-lg flex items-center justify-center">
-                            <i class="fa-solid fa-rotate-right mr-2 text-pastel-400 text-xl group-hover:rotate-180 transition-transform duration-500"></i> เคยใช้บริการแล้ว
+                        <button onclick="startServiceFlow('returning')" class="bg-white hover:bg-[#FFFBE6] text-[#543B32] font-bold px-6 py-3.5 rounded-2xl border-2 border-[#F4C760] shadow-md custom-transition font-playful">
+                            <i class="fa-solid fa-rotate-right mr-2"></i> เคยใช้บริการแล้ว
+                        </button>
+                        <button onclick="switchView('check-points')" class="bg-[#FFF3B0] hover:bg-[#F4C760] text-[#543B32] font-bold px-6 py-3.5 rounded-2xl shadow-md custom-transition font-playful">
+                            <i class="fa-solid fa-award mr-2"></i> เช็คแต้มสะสม
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Important Notice Card -->
-            <div class="max-w-3xl mx-auto">
-                <div class="bg-gradient-to-r from-pastel-100 to-amber-50 p-[3px] rounded-3xl shadow-sm">
-                    <div class="bg-white rounded-[22px] p-5 flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left h-full">
-                        <div class="bg-pastel-100 w-12 h-12 rounded-2xl flex shrink-0 items-center justify-center text-amber-500 text-xl">
-                            <i class="fa-solid fa-bell animate-[wiggle_1s_ease-in-out_infinite]"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-extrabold text-pastel-900 text-base font-playful flex items-center justify-center sm:justify-start">
-                                ประกาศสำคัญ <span class="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase">New</span>
-                            </h3>
-                            <p class="text-pastel-800 text-sm mt-1 font-medium">“เมื่อสะสมครบ 10 แต้มแล้ว ในการใช้บริการครั้งถัดไป กรุณาใช้รหัสการใช้บริการอีกครั้ง”</p>
-                        </div>
+            <div class="space-y-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 px-2">
+                    <h3 class="font-extrabold text-xl text-[#543B32] font-playful"><i class="fa-solid fa-comments text-[#e0b450] mr-2"></i> รีวิวความประทับใจจากลูกค้า</h3>
+                    <div class="flex items-center gap-2">
+                        <button onclick="filterPublicReviews('all')" id="pub-filter-all" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#543B32] text-white shadow-sm custom-transition">ทั้งหมด (<span id="count-all">0</span>)</button>
+                        <button onclick="filterPublicReviews('comment')" id="pub-filter-comment" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-[#543B32] border border-[#F4C760] hover:bg-[#FFFBE6] custom-transition">💬 เขียนรีวิว (<span id="count-comment">0</span>)</button>
+                        <button onclick="filterPublicReviews('star')" id="pub-filter-star" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-[#543B32] border border-[#F4C760] hover:bg-[#FFFBE6] custom-transition">⭐ ดาวอย่างเดียว (<span id="count-star">0</span>)</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Check Points Large Card -->
-            <div class="max-w-3xl mx-auto cursor-pointer group" onclick="switchView('check-points')">
-                <div class="bg-pastel-400 rounded-3xl p-6 sm:p-8 flex items-center justify-between shadow-cute custom-transition group-hover:-translate-y-1 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 opacity-10 text-9xl transform translate-x-8 -translate-y-8 group-hover:rotate-12 transition-transform duration-700">
-                        <i class="fa-solid fa-ticket"></i>
-                    </div>
-                    <div class="relative z-10 flex items-center gap-5">
-                        <div class="bg-white/30 backdrop-blur-md w-16 h-16 rounded-2xl flex items-center justify-center text-pastel-900 text-2xl shadow-sm">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-black text-pastel-900 font-playful">เช็คแต้มสะสม</h3>
-                            <p class="text-pastel-900/80 text-sm font-medium mt-0.5">ตรวจสอบเครดิตและยอดแต้มปัจจุบันของคุณ</p>
-                        </div>
-                    </div>
-                    <div class="relative z-10 bg-white text-pastel-900 w-12 h-12 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 custom-transition">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-6 pt-6 border-t border-pastel-200 border-dashed">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
-                    <div>
-                        <h3 class="font-extrabold text-2xl text-pastel-900 font-playful flex items-center">
-                            <div class="w-8 h-8 rounded-xl bg-pastel-200 text-amber-600 flex items-center justify-center mr-3 text-sm">
-                                <i class="fa-solid fa-comments"></i>
-                            </div>
-                            รีวิวความประทับใจ
-                        </h3>
-                        <p class="text-sm text-pastel-700 mt-1 ml-11 font-medium">เสียงตอบรับจากลูกค้าที่น่ารักของเรา</p>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-2 bg-white p-1.5 rounded-2xl shadow-sm border border-pastel-100">
-                        <button onclick="filterPublicReviews('all')" id="pub-filter-all" class="px-4 py-2 text-xs font-bold rounded-xl bg-pastel-900 text-white shadow-sm custom-transition">ทั้งหมด (<span id="count-all">0</span>)</button>
-                        <button onclick="filterPublicReviews('comment')" id="pub-filter-comment" class="px-4 py-2 text-xs font-bold rounded-xl bg-transparent text-pastel-700 hover:bg-pastel-50 custom-transition">💬 ข้อความ (<span id="count-comment">0</span>)</button>
-                        <button onclick="filterPublicReviews('star')" id="pub-filter-star" class="px-4 py-2 text-xs font-bold rounded-xl bg-transparent text-pastel-700 hover:bg-pastel-50 custom-transition">⭐ ให้ดาว (<span id="count-star">0</span>)</button>
-                    </div>
-                </div>
-                <div id="public-reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div id="public-reviews-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Dynamic Public Reviews -->
                 </div>
             </div>
         </div>
 
         <!-- CUSTOMER: CHECK POINTS VIEW -->
-        <div id="view-check-points" class="hidden max-w-lg mx-auto space-y-6">
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-card border-2 border-white relative overflow-hidden">
-                <!-- Cute Header -->
-                <div class="text-center space-y-3 mb-8">
-                    <div class="inline-block bg-pastel-100 p-4 rounded-3xl text-amber-500 text-4xl mb-2 relative">
-                        <i class="fa-solid fa-gift animate-bounce"></i>
-                        <div class="absolute top-2 right-2 text-lg text-pastel-300 animate-pulse"><i class="fa-solid fa-star"></i></div>
-                    </div>
-                    <h3 class="text-3xl font-black text-pastel-900 font-playful">แต้มสะสมของฉัน ✨</h3>
-                    <p class="text-sm text-pastel-700 font-medium">กรุณากรอกรหัสคิวหลักของคุณเพื่อดูยอดแต้ม</p>
+        <div id="view-check-points" class="hidden max-w-md mx-auto bg-white rounded-3xl p-6 md:p-8 pastel-shadow border-2 border-[#F4C760] space-y-6">
+            <div class="text-center space-y-2">
+                <div class="bg-[#FFF3B0] w-16 h-16 rounded-3xl flex items-center justify-center text-[#543B32] text-2xl mx-auto shadow-md">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
                 </div>
-
-                <div class="space-y-5 bg-cream-50 p-6 rounded-3xl border border-pastel-100">
-                    <div>
-                        <label class="block text-sm font-bold text-pastel-900 mb-2 pl-2">รหัสคิวหลัก (ตัวอย่าง: JB0001-Q)</label>
-                        <input type="text" id="check-main-code" placeholder="JB0001-Q" onkeydown="if(event.key === 'Enter') handleCheckPoints()" class="w-full px-5 py-4 rounded-2xl border-2 border-pastel-200 focus:outline-none focus:border-pastel-400 focus:ring-4 focus:ring-pastel-100 uppercase font-mono tracking-widest text-center text-xl bg-white font-bold text-pastel-900 placeholder-pastel-300 custom-transition shadow-inner">
-                    </div>
-                    <button onclick="handleCheckPoints()" class="w-full bg-pastel-400 hover:bg-pastel-500 text-pastel-900 font-black py-4 rounded-2xl shadow-cute custom-transition font-playful text-lg flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-search"></i> ตรวจสอบแต้มสะสม
-                    </button>
-                </div>
-
-                <div id="check-points-result" class="hidden mt-6 bg-gradient-to-b from-white to-pastel-50 rounded-3xl p-6 text-center space-y-3 border-2 border-pastel-200 shadow-sm animate-[fadeIn_0.5s_ease-out]">
-                    <!-- Result Box updated in JS -->
-                </div>
+                <h3 class="text-2xl font-extrabold text-[#543B32] font-playful">เช็คแต้มสะสม</h3>
+                <p class="text-xs text-[#543B32]/80 font-medium">กรุณากรอกรหัสแรกที่ใช้บริการ / รหัสคิวหลักของคุณ</p>
             </div>
 
-            <div class="text-center">
-                <button onclick="switchView('customer-home')" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-pastel-500 hover:text-pastel-800 hover:bg-pastel-50 border border-pastel-200 shadow-sm custom-transition">
-                    <i class="fa-solid fa-arrow-left"></i>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-[#543B32] mb-1.5">รหัสคิวหลัก (ตัวอย่าง: JB0001-Q)</label>
+                    <input type="text" id="check-main-code" placeholder="JB0001-Q" class="w-full px-4 py-3.5 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] uppercase font-mono tracking-wide text-center text-lg bg-[#FCF9F2] font-bold text-[#543B32]">
+                </div>
+                <button onclick="handleCheckPoints()" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3.5 rounded-2xl shadow-md custom-transition font-playful">
+                    ตรวจสอบแต้มสะสม ✨
+                </button>
+            </div>
+
+            <div id="check-points-result" class="hidden bg-[#FFFBE6] rounded-2xl p-4 text-center space-y-2 border-2 border-[#F4C760]">
+                <!-- Result Box -->
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="switchView('customer-home')" class="text-sm text-[#543B32] hover:text-[#543B32]/80 font-bold">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> กลับหน้าหลัก
                 </button>
             </div>
         </div>
 
         <!-- CUSTOMER: SERVICE LOGIN / VERIFY VIEW -->
-        <div id="view-service-login" class="hidden max-w-lg mx-auto space-y-6">
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-card border-2 border-white">
-                <div class="text-center space-y-3 mb-8">
-                    <div id="login-icon-box" class="inline-flex items-center justify-center w-20 h-20 bg-pastel-100 rounded-3xl text-amber-500 text-3xl mb-2 shadow-sm">
-                        <i class="fa-solid fa-ticket"></i>
-                    </div>
-                    <h3 id="login-title-text" class="text-3xl font-black text-pastel-900 font-playful">เข้าสู่ระบบใช้บริการ</h3>
-                    <p id="login-desc-text" class="text-sm text-pastel-700 font-medium">กรอกรหัสคิวที่ได้รับจากทางร้าน</p>
+        <div id="view-service-login" class="hidden max-w-md mx-auto bg-white rounded-3xl p-6 md:p-8 pastel-shadow border-2 border-[#F4C760] space-y-6">
+            <div class="text-center space-y-2">
+                <div id="login-icon-box" class="bg-[#FFF3B0] w-16 h-16 rounded-3xl flex items-center justify-center text-[#543B32] text-2xl mx-auto shadow-md">
+                    <i class="fa-solid fa-ticket"></i>
                 </div>
-
-                <div id="login-form-fields" class="space-y-5 bg-cream-50 p-6 rounded-3xl border border-pastel-100">
-                    <!-- Dynamic Inputs -->
-                </div>
+                <h3 id="login-title-text" class="text-2xl font-extrabold text-[#543B32] font-playful">เข้าสู่ระบบใช้บริการ</h3>
+                <p id="login-desc-text" class="text-xs text-[#543B32]/80 font-medium">กรอกรหัสคิวที่ได้รับจากแอดมิน</p>
             </div>
 
-            <div class="text-center">
-                <button onclick="switchView('customer-home')" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-pastel-500 hover:text-pastel-800 hover:bg-pastel-50 border border-pastel-200 shadow-sm custom-transition">
-                    <i class="fa-solid fa-times text-xl"></i>
+            <div id="login-form-fields" class="space-y-4">
+                <!-- Dynamic Inputs -->
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="switchView('customer-home')" class="text-sm text-[#543B32] hover:text-[#543B32]/80 font-bold">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> ยกเลิกและกลับหน้าหลัก
                 </button>
             </div>
         </div>
 
         <!-- CUSTOMER: REVIEW VIEW -->
-        <div id="view-review" class="hidden max-w-xl mx-auto space-y-6">
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-card border-2 border-white relative">
-                <!-- Cute corner decoration -->
-                <div class="absolute top-0 right-0 w-32 h-32 bg-pastel-200 rounded-bl-full -z-10 opacity-50"></div>
-                
-                <div class="text-center space-y-3 mb-6 relative z-10">
-                    <h3 class="text-3xl font-black text-pastel-900 font-playful">เขียนรีวิวความประทับใจ 💛</h3>
-                    <p class="text-sm text-pastel-700 font-medium">ให้คะแนนและบอกเล่าความรู้สึกเพื่อรับแต้มสะสม</p>
-                    
-                    <div class="mt-4 inline-block">
-                        <div class="bg-white border-2 border-pastel-200 px-5 py-2 rounded-2xl shadow-sm flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-pastel-100 flex items-center justify-center text-pastel-600 text-xs">
-                                <i class="fa-solid fa-hashtag"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="text-[10px] text-pastel-500 font-bold uppercase tracking-wider">รหัสคิวที่ใช้รีวิว</div>
-                                <div id="review-current-code-display" class="font-mono font-black text-pastel-900 text-sm"></div>
-                            </div>
-                        </div>
+        <div id="view-review" class="hidden max-w-lg mx-auto bg-white rounded-3xl p-6 md:p-8 pastel-shadow border-2 border-[#F4C760] space-y-6">
+            <div class="text-center space-y-2">
+                <div class="bg-[#FFF3B0] w-16 h-16 rounded-3xl flex items-center justify-center text-[#543B32] text-2xl mx-auto shadow-md">
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-[#543B32] font-playful">เขียนรีวิวความประทับใจ</h3>
+                <p class="text-xs text-[#543B32]/80 font-medium">ให้คะแนนและแสดงความคิดเห็นเพื่อรับแต้มสะสมตามเงื่อนไข</p>
+                <div class="inline-block bg-[#FFFBE6] border-2 border-[#F4C760] text-[#543B32] text-xs font-bold px-3.5 py-1.5 rounded-full mt-2 shadow-sm">
+                    รหัสคิวที่ใช้รีวิวครั้งนี้: <span id="review-current-code-display" class="font-mono font-extrabold text-[#543B32]"></span>
+                </div>
+            </div>
+
+            <div class="space-y-5">
+                <div class="flex flex-col items-center space-y-2 bg-[#FCF9F2] p-4 rounded-2xl border border-[#F4C760]">
+                    <label class="text-xs font-bold text-[#543B32]">คะแนนความพึงพอใจ</label>
+                    <div id="star-rating-container" class="flex space-x-2 text-3xl text-[#e0b450] cursor-pointer">
+                        <i class="fa-solid fa-star hover:scale-110 custom-transition" onclick="setRating(1)"></i>
+                        <i class="fa-solid fa-star hover:scale-110 custom-transition" onclick="setRating(2)"></i>
+                        <i class="fa-solid fa-star hover:scale-110 custom-transition" onclick="setRating(3)"></i>
+                        <i class="fa-solid fa-star hover:scale-110 custom-transition" onclick="setRating(4)"></i>
+                        <i class="fa-solid fa-star hover:scale-110 custom-transition" onclick="setRating(5)"></i>
                     </div>
+                    <span id="rating-text" class="text-xs font-bold text-[#543B32]">5 ดาว (ยอดเยี่ยม)</span>
                 </div>
 
-                <div class="space-y-6 relative z-10">
-                    <!-- Star Rating Card -->
-                    <div class="flex flex-col items-center justify-center space-y-4 bg-gradient-to-b from-pastel-50 to-white p-8 rounded-3xl border border-pastel-200 shadow-sm">
-                        <label class="text-sm font-black text-pastel-900 font-playful">คุณประทับใจแค่ไหน? 😍</label>
-                        <div id="star-rating-container" class="flex space-x-3 text-4xl text-amber-400 cursor-pointer drop-shadow-sm">
-                            <i class="fa-solid fa-star hover:scale-125 hover:-rotate-12 custom-transition" onclick="setRating(1)"></i>
-                            <i class="fa-solid fa-star hover:scale-125 hover:-rotate-12 custom-transition" onclick="setRating(2)"></i>
-                            <i class="fa-solid fa-star hover:scale-125 hover:-rotate-12 custom-transition" onclick="setRating(3)"></i>
-                            <i class="fa-solid fa-star hover:scale-125 hover:-rotate-12 custom-transition" onclick="setRating(4)"></i>
-                            <i class="fa-solid fa-star hover:scale-125 hover:-rotate-12 custom-transition" onclick="setRating(5)"></i>
-                        </div>
-                        <span id="rating-text" class="text-sm font-bold text-amber-600 bg-amber-50 px-4 py-1.5 rounded-full">5 ดาว (ยอดเยี่ยม)</span>
-                    </div>
-
-                    <!-- Comment Area -->
-                    <div class="bg-cream-50 p-6 rounded-3xl border border-pastel-100">
-                        <label class="block text-sm font-bold text-pastel-900 mb-2 pl-2 flex items-center gap-2">
-                            <i class="fa-regular fa-comment-dots text-pastel-500"></i> ข้อความรีวิว (เว้นว่างได้)
-                        </label>
-                        <textarea id="review-comment-input" rows="4" maxlength="500" placeholder="พิมพ์ความรู้สึกหรือข้อเสนอแนะของคุณที่นี่..." class="w-full px-5 py-4 rounded-2xl border-2 border-pastel-200 focus:outline-none focus:border-pastel-400 focus:ring-4 focus:ring-pastel-100 text-sm bg-white text-pastel-900 resize-none custom-transition"></textarea>
-                    </div>
-
-                    <button onclick="submitReview()" class="w-full group bg-pastel-400 hover:bg-pastel-500 text-pastel-900 font-black py-4 rounded-2xl shadow-cute custom-transition text-lg font-playful flex justify-center items-center gap-2 overflow-hidden relative">
-                        <div class="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-300 ease-out"></div>
-                        <i class="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10"></i> 
-                        <span class="relative z-10">ส่งรีวิวและรับแต้มสะสม</span>
-                    </button>
+                <div>
+                    <label class="block text-xs font-bold text-[#543B32] mb-1.5">ข้อความรีวิว/ความประทับใจ (เว้นว่างได้)</label>
+                    <textarea id="review-comment-input" rows="4" placeholder="พิมพ์ความรู้สึกหรือข้อเสนอแนะของคุณที่นี่..." class="w-full px-4 py-3 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] text-sm bg-[#FCF9F2] text-[#543B32]"></textarea>
                 </div>
+
+                <button onclick="submitReview()" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-4 rounded-2xl shadow-lg custom-transition text-base font-playful">
+                    <i class="fa-solid fa-paper-plane mr-1.5"></i> ส่งรีวิวและรับแต้มสะสม 💛
+                </button>
             </div>
         </div>
 
         <!-- CUSTOMER: SUCCESS POINTS VIEW -->
-        <div id="view-success" class="hidden max-w-lg mx-auto space-y-6">
-            <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-card border-2 border-white text-center relative overflow-hidden">
-                <!-- Confetti Background effect via CSS -->
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iMiIgZmlsbD0iI2ZmZDY0NyIvPjwvc3ZnPg==')] opacity-30"></div>
-
-                <div class="relative z-10 space-y-8">
-                    <div class="inline-block relative">
-                        <div class="bg-pastel-300 w-24 h-24 rounded-full flex items-center justify-center text-pastel-900 text-5xl mx-auto shadow-cute animate-[bounce_2s_infinite]">
-                            <i class="fa-solid fa-face-smile-beam"></i>
-                        </div>
-                        <div class="absolute -top-4 -right-4 text-3xl text-amber-500 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]">✨</div>
-                        <div class="absolute -bottom-2 -left-4 text-4xl text-pastel-400 animate-[bounce_3s_infinite]">🎉</div>
-                        <div class="absolute top-10 -right-8 text-2xl text-rose-400 animate-pulse">🏆</div>
-                    </div>
-                    
-                    <div class="space-y-2">
-                        <h3 class="text-3xl font-black text-pastel-900 font-playful">ยินดีด้วย! <br> คุณได้รับแต้มสะสมแล้ว</h3>
-                        <p class="text-sm text-pastel-700 font-medium max-w-xs mx-auto">รีวิวถูกบันทึกเรียบร้อย และแต้มถูกเพิ่มเข้าสู่รหัสคิวหลักของคุณแล้ว 💛</p>
-                    </div>
-
-                    <div class="bg-gradient-to-b from-pastel-100 to-white rounded-3xl p-6 border-2 border-pastel-200 shadow-sm relative">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-pastel-200 text-pastel-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                            ยอดแต้มสะสมปัจจุบัน
-                        </div>
-                        <div class="text-sm text-pastel-600 font-bold mb-2 pt-2">รหัสหลัก: <span id="success-main-code" class="font-mono text-pastel-900"></span></div>
-                        <div class="flex items-center justify-center gap-2">
-                            <span class="text-green-500 font-bold text-lg mr-2 animate-pulse" id="success-points-added-display"></span>
-                            <div class="text-6xl font-black text-pastel-900 drop-shadow-sm"><span id="success-points-gained">0</span></div>
-                            <div class="text-2xl font-black text-pastel-700 self-end mb-2">แต้ม</div>
-                        </div>
-                    </div>
-
-                    <div id="success-milestone-alert" class="hidden bg-gradient-to-r from-amber-100 to-pastel-100 border-2 border-amber-300 p-5 rounded-3xl text-amber-900 text-sm font-bold shadow-sm relative overflow-hidden text-left flex items-start gap-4">
-                        <div class="absolute -right-4 -bottom-4 text-6xl text-amber-200 opacity-50"><i class="fa-solid fa-gift"></i></div>
-                        <div class="text-3xl text-amber-500 shrink-0"><i class="fa-solid fa-gift animate-bounce"></i></div>
-                        <div class="relative z-10">
-                            <div class="text-lg font-black font-playful mb-1 text-pastel-900">สะสมครบ 10 แต้มแล้ว!</div>
-                            <div>ในการใช้บริการครั้งถัดไป กรุณาใช้รหัสการใช้บริการอีกครั้งเพื่อรับสิทธิ์</div>
-                        </div>
-                    </div>
-
-                    <button onclick="switchView('customer-home')" class="w-full bg-white hover:bg-pastel-50 border-2 border-pastel-200 text-pastel-900 font-bold py-4 rounded-2xl shadow-sm custom-transition font-playful text-lg">
-                        กลับหน้าหลัก
-                    </button>
-                </div>
+        <div id="view-success" class="hidden max-w-md mx-auto bg-white rounded-3xl p-6 md:p-8 pastel-shadow border-2 border-[#F4C760] text-center space-y-6">
+            <div class="bg-[#FFF3B0] w-20 h-20 rounded-3xl flex items-center justify-center text-[#543B32] text-4xl mx-auto shadow-md animate-bounce">
+                <i class="fa-solid fa-face-smile-beam"></i>
             </div>
+            
+            <div class="space-y-2">
+                <h3 class="text-2xl font-extrabold text-[#543B32] font-playful">ยินดีด้วย! คุณได้รับแต้มสะสมแล้ว 🎉</h3>
+                <p class="text-xs text-[#543B32]/80 font-medium">รีวิวของคุณถูกบันทึกเรียบร้อยแล้ว แต้มได้ถูกเพิ่มเข้าสู่รหัสคิวหลักเรียบร้อย</p>
+            </div>
+
+            <div class="bg-[#FFFBE6] rounded-3xl p-5 border-2 border-[#F4C760] space-y-2 shadow-inner">
+                <div class="text-xs text-[#543B32] font-bold">ยอดแต้มสะสมปัจจุบันรวมในรหัสหลัก (<span id="success-main-code" class="font-mono"></span>)</div>
+                <div class="text-5xl font-black text-[#543B32]"><span id="success-points-gained">0</span> <span class="text-xl font-bold text-[#543B32]/80">แต้ม</span></div>
+            </div>
+
+            <div id="success-milestone-alert" class="hidden bg-[#FFFBE6] border-2 border-[#F4C760] p-4 rounded-2xl text-[#543B32] text-sm font-bold shadow-sm">
+                <i class="fa-solid fa-gift mr-1.5 text-[#e0b450] text-lg"></i> แต้มสะสมครบ 10 แต้มแล้ว! ในการใช้บริการครั้งถัดไป กรุณาใช้รหัสการใช้บริการอีกครั้ง
+            </div>
+
+            <button onclick="switchView('customer-home')" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3.5 rounded-2xl shadow-md custom-transition font-playful">
+                <i class="fa-solid fa-house mr-1"></i> กลับหน้าหลัก
+            </button>
         </div>
 
         <!-- ADMIN DASHBOARD VIEW -->
-        <div id="view-admin" class="hidden space-y-8">
-            <div class="bg-white rounded-[2rem] p-6 md:p-8 shadow-card border border-pastel-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-pastel-900 text-pastel-400 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-md">
-                        <i class="fa-solid fa-shield-cat"></i>
+        <div id="view-admin" class="hidden space-y-6">
+            <div class="bg-white rounded-3xl p-4 md:p-6 pastel-shadow border-2 border-[#F4C760] flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-[#543B32] text-[#FFF3B0] w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold shadow-md">
+                        <i class="fa-solid fa-shield-halved"></i>
                     </div>
                     <div>
-                        <h2 class="font-black text-xl text-pastel-900 font-playful">JUMBOOSHOP Admin</h2>
-                        <p class="text-xs text-pastel-600 font-medium tracking-wide uppercase mt-1">จัดการระบบสะสมแต้มและรีวิว</p>
+                        <h2 class="font-extrabold text-lg text-[#543B32] font-playful">แผงควบคุมผู้ดูแลระบบ (JUMBOOSHOP Admin)</h2>
+                        <p class="text-xs text-[#543B32]/80 font-medium">จัดการรหัสคิว กำหนดแต้ม และตรวจสอบข้อมูลระบบ</p>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center justify-end gap-3 w-full md:w-auto">
-                    <button onclick="openResetModal()" class="bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold px-5 py-3 rounded-xl border border-red-200 custom-transition flex items-center gap-2">
-                        <i class="fa-solid fa-power-off"></i> รีเซ็ตระบบ
+                <div class="flex flex-wrap items-center justify-end gap-2 w-full md:w-auto">
+                    <button onclick="openResetModal()" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold px-4 py-2.5 rounded-xl border border-red-200 custom-transition">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> รีเซ็ตระบบ
                     </button>
-                    <button onclick="adminLogout()" class="bg-pastel-100 hover:bg-pastel-200 text-pastel-900 text-sm font-bold px-5 py-3 rounded-xl shadow-sm custom-transition flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i> ออกจากระบบ
+                    <button onclick="adminLogout()" class="bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm custom-transition">
+                        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> ออกจากระบบ / กลับหน้าลูกค้า
                     </button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-[2rem] p-2 shadow-sm border border-pastel-100 inline-flex flex-wrap gap-2 w-full md:w-auto">
-                <button onclick="switchAdminTab('codes')" id="admin-tab-btn-codes" class="px-6 py-3 text-sm font-bold rounded-xl bg-pastel-900 text-white shadow-md custom-transition font-playful flex items-center gap-2 flex-1 md:flex-none justify-center">
-                    <i class="fa-solid fa-ticket"></i> รหัสคิว
+            <div class="flex flex-wrap gap-2 border-b-2 border-[#ebdcca] pb-3">
+                <button onclick="switchAdminTab('codes')" id="admin-tab-btn-codes" class="px-4 py-2.5 text-sm font-bold rounded-2xl bg-[#543B32] text-white shadow-md custom-transition font-playful">
+                    <i class="fa-solid fa-ticket mr-1.5"></i> ออกรหัสคิว & กำหนดแต้ม
                 </button>
-                <button onclick="switchAdminTab('points')" id="admin-tab-btn-points" class="px-6 py-3 text-sm font-bold rounded-xl bg-transparent text-pastel-700 hover:bg-pastel-50 custom-transition font-playful flex items-center gap-2 flex-1 md:flex-none justify-center">
-                    <i class="fa-solid fa-award"></i> ประวัติแต้ม
+                <button onclick="switchAdminTab('points')" id="admin-tab-btn-points" class="px-4 py-2.5 text-sm font-bold rounded-2xl bg-white text-[#543B32] hover:bg-[#FFFBE6] border border-[#F4C760] custom-transition font-playful">
+                    <i class="fa-solid fa-award mr-1.5"></i> แต้มลูกค้า & ประวัติ
                 </button>
-                <button onclick="switchAdminTab('reviews')" id="admin-tab-btn-reviews" class="px-6 py-3 text-sm font-bold rounded-xl bg-transparent text-pastel-700 hover:bg-pastel-50 custom-transition font-playful flex items-center gap-2 flex-1 md:flex-none justify-center">
-                    <i class="fa-solid fa-comments"></i> รีวิวทั้งหมด
+                <button onclick="switchAdminTab('reviews')" id="admin-tab-btn-reviews" class="px-4 py-2.5 text-sm font-bold rounded-2xl bg-white text-[#543B32] hover:bg-[#FFFBE6] border border-[#F4C760] custom-transition font-playful">
+                    <i class="fa-solid fa-comments mr-1.5"></i> ตรวจสอบรีวิวทั้งหมด
                 </button>
             </div>
 
-            <!-- Admin Tab: Codes -->
-            <div id="admin-tab-codes" class="space-y-6 animate-[fadeIn_0.3s_ease-out]">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="bg-white rounded-[2rem] p-6 lg:p-8 shadow-card border border-pastel-100 space-y-5 h-fit">
-                        <div class="w-12 h-12 bg-pastel-100 text-pastel-600 rounded-2xl flex items-center justify-center text-xl mb-2">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-                        <h3 class="font-black text-xl text-pastel-900 font-playful">สร้างรหัสคิวใหม่</h3>
-                        <p class="text-sm text-pastel-600 font-medium">ระบบจะรันหมายเลขถัดไปให้อัตโนมัติ รหัสใหม่จะมีค่าเริ่มต้นที่ <span class="font-bold text-pastel-900 bg-pastel-100 px-2 py-0.5 rounded">0 แต้ม</span></p>
-                        <button onclick="adminGenerateCode()" class="w-full bg-pastel-400 hover:bg-pastel-500 text-pastel-900 font-black py-4 rounded-2xl shadow-cute custom-transition font-playful flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-plus"></i> ออกรหัสคิวถัดไป
+            <div id="admin-tab-codes" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-3xl p-6 pastel-shadow border-2 border-[#F4C760] space-y-4 h-fit">
+                        <h3 class="font-bold text-[#543B32] flex items-center font-playful"><i class="fa-solid fa-plus-circle text-[#e0b450] mr-2"></i> สร้างรหัสคิวใหม่</h3>
+                        <p class="text-xs text-[#543B32]/80 font-medium">ระบบจะสร้างรหัสถัดไปอัตโนมัติ โดยทุกรหัสใหม่จะมี <span class="font-bold text-[#543B32]">0 แต้ม</span> เสมอตามกฎ</p>
+                        <button onclick="adminGenerateCode()" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3.5 rounded-2xl shadow-md custom-transition font-playful">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> ออกรหัสคิวถัดไป 💛
                         </button>
                     </div>
 
-                    <div class="lg:col-span-2 bg-white rounded-[2rem] p-6 lg:p-8 shadow-card border border-pastel-100 space-y-6">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <div>
-                                <h3 class="font-black text-xl text-pastel-900 font-playful">รายการรหัสคิว</h3>
-                                <p class="text-xs text-pastel-500 mt-1 uppercase tracking-wider font-bold">ทั้งหมดในระบบ</p>
-                            </div>
-                            <span id="admin-code-count" class="text-sm bg-pastel-100 text-pastel-800 font-black px-4 py-1.5 rounded-full border border-pastel-200">0 รหัส</span>
+                    <div class="md:col-span-2 bg-white rounded-3xl p-6 pastel-shadow border-2 border-[#F4C760] space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-[#543B32] font-playful"><i class="fa-solid fa-list-check text-[#e0b450] mr-2"></i> รายการรหัสคิวทั้งหมดในระบบ</h3>
+                            <span id="admin-code-count" class="text-xs bg-[#FFF3B0] text-[#543B32] font-bold px-3 py-1 rounded-full">0 รหัส</span>
                         </div>
-                        <div class="overflow-hidden rounded-2xl border border-pastel-100">
-                            <div class="overflow-x-auto max-h-[500px] overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-sm border-collapse">
-                                    <thead class="bg-pastel-50 text-pastel-900 font-bold sticky top-0 z-10 backdrop-blur-sm">
-                                        <tr>
-                                            <th class="p-4 border-b border-pastel-100">รหัสคิว</th>
-                                            <th class="p-4 border-b border-pastel-100">แต้มกำหนด</th>
-                                            <th class="p-4 border-b border-pastel-100">สถานะ</th>
-                                            <th class="p-4 border-b border-pastel-100 text-right">จัดการ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="admin-codes-tbody" class="divide-y divide-pastel-50 bg-white">
-                                        <!-- Rendered via JS -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Admin Tab: Points -->
-            <div id="admin-tab-points" class="hidden space-y-6 animate-[fadeIn_0.3s_ease-out]">
-                <div class="bg-white rounded-[2rem] p-6 lg:p-8 shadow-card border border-pastel-100 space-y-6">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div>
-                            <h3 class="font-black text-xl text-pastel-900 font-playful">ประวัติการสะสมแต้ม</h3>
-                            <p class="text-sm text-pastel-600 font-medium mt-1">บันทึกอัตโนมัติเมื่อลูกค้าใช้บริการและรีวิวสำเร็จ</p>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
-                            <div class="relative w-full md:w-64">
-                                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-pastel-400"></i>
-                                <input type="text" id="admin-search-main" oninput="renderAdminPoints()" placeholder="ค้นหารหัสหลัก..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-pastel-200 text-sm uppercase font-mono font-bold focus:outline-none focus:border-pastel-400 focus:ring-2 focus:ring-pastel-100 bg-cream-50">
-                            </div>
-                            <button onclick="openClearHistoryModal()" class="bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold px-5 py-3 rounded-xl border border-red-200 custom-transition whitespace-nowrap flex items-center gap-2 w-full md:w-auto justify-center">
-                                <i class="fa-solid fa-trash-can"></i> ลบประวัติ
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="overflow-hidden rounded-2xl border border-pastel-100">
-                        <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
-                            <table class="w-full text-left text-sm border-collapse">
-                                <thead class="bg-pastel-50 text-pastel-900 font-bold sticky top-0 z-10">
+                        <div class="overflow-x-auto max-h-[400px] overflow-y-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-[#FFFBE6] text-[#543B32] sticky top-0 font-bold">
                                     <tr>
-                                        <th class="p-4 border-b border-pastel-100">รหัสหลัก</th>
-                                        <th class="p-4 border-b border-pastel-100">รหัสที่ใช้ทำรายการ</th>
-                                        <th class="p-4 border-b border-pastel-100">แต้มที่ได้</th>
-                                        <th class="p-4 border-b border-pastel-100">ยอดรวมล่าสุด</th>
-                                        <th class="p-4 border-b border-pastel-100">เวลา</th>
+                                        <th class="p-3 rounded-l-2xl">รหัสคิว</th>
+                                        <th class="p-3">แต้มกำหนด</th>
+                                        <th class="p-3">สถานะรีวิว</th>
+                                        <th class="p-3 rounded-r-2xl text-right">จัดการ / ตั้งค่าแต้ม</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-points-tbody" class="divide-y divide-pastel-50 bg-white">
-                                    <!-- Rendered via JS -->
+                                <tbody id="admin-codes-tbody" class="divide-y divide-[#ebdcca]/40">
                                 </tbody>
                             </table>
                         </div>
@@ -498,24 +367,54 @@
                 </div>
             </div>
 
-            <!-- Admin Tab: Reviews -->
-            <div id="admin-tab-reviews" class="hidden space-y-6 animate-[fadeIn_0.3s_ease-out]">
-                <div class="bg-white rounded-[2rem] p-6 lg:p-8 shadow-card border border-pastel-100 space-y-6">
+            <div id="admin-tab-points" class="hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 pastel-shadow border-2 border-[#F4C760] space-y-4">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
-                            <h3 class="font-black text-xl text-pastel-900 font-playful flex items-center gap-2">
-                                จัดการรีวิวทั้งหมด <span id="admin-review-count" class="text-xs bg-pastel-100 text-pastel-800 font-black px-3 py-1 rounded-full border border-pastel-200 align-middle">0</span>
-                            </h3>
+                            <h3 class="font-bold text-[#543B32] font-playful"><i class="fa-solid fa-award text-[#e0b450] mr-2"></i> ตารางแต้มลูกค้า & ประวัติธุรกรรม</h3>
+                            <p class="text-xs text-[#543B32]/80 font-medium">บันทึกอัตโนมัติเมื่อมีการใช้บริการและส่งรีวิวสำเร็จ แอดมินสามารถค้นหาและจัดการประวัติได้</p>
                         </div>
-                        <div class="flex flex-wrap items-center gap-2 bg-pastel-50 p-1.5 rounded-xl border border-pastel-100">
-                            <button onclick="filterAdminReviews('all')" id="admin-filter-all" class="px-4 py-2 text-xs font-bold rounded-lg bg-pastel-900 text-white shadow-sm custom-transition">ทั้งหมด (<span id="admin-count-all">0</span>)</button>
-                            <button onclick="filterAdminReviews('comment')" id="admin-filter-comment" class="px-4 py-2 text-xs font-bold rounded-lg bg-transparent text-pastel-700 hover:bg-white custom-transition">💬 ข้อความ (<span id="admin-count-comment">0</span>)</button>
-                            <button onclick="filterAdminReviews('star')" id="admin-filter-star" class="px-4 py-2 text-xs font-bold rounded-lg bg-transparent text-pastel-700 hover:bg-white custom-transition">⭐ ให้ดาว (<span id="admin-count-star">0</span>)</button>
+                        <div class="flex items-center gap-2">
+                            <div class="relative">
+                                <input type="text" id="admin-search-main" oninput="renderAdminPoints()" placeholder="ค้นหารหัสหลัก (เช่น JB0001-Q)" class="px-4 py-2.5 rounded-xl border-2 border-[#F4C760] text-xs uppercase font-mono font-bold focus:outline-none focus:border-[#e0b450] w-56 bg-[#FCF9F2] text-[#543B32]">
+                            </div>
+                            <button onclick="openClearHistoryModal()" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold px-4 py-2.5 rounded-xl border border-red-200 custom-transition whitespace-nowrap">
+                                <i class="fa-solid fa-trash-can mr-1"></i> ลบประวัติทั้งหมด
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="admin-reviews-container">
-                        <!-- Rendered via JS -->
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-[#FFFBE6] text-[#543B32] font-bold">
+                                <tr>
+                                    <th class="p-3 rounded-l-2xl">รหัสหลัก</th>
+                                    <th class="p-3">รหัสที่ใช้ครั้งนี้</th>
+                                    <th class="p-3">แต้มครั้งนี้</th>
+                                    <th class="p-3 rounded-r-2xl">แต้มสะสมรวม</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-points-tbody" class="divide-y divide-[#ebdcca]/40">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-tab-reviews" class="hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 pastel-shadow border-2 border-[#F4C760] space-y-4">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                        <div class="flex items-center space-x-2">
+                            <h3 class="font-bold text-[#543B32] font-playful"><i class="fa-solid fa-comments text-[#e0b450] mr-2"></i> รายการรีวิวทั้งหมดในระบบ</h3>
+                            <span id="admin-review-count" class="text-xs bg-[#FFF3B0] text-[#543B32] font-bold px-3 py-1 rounded-full">0 รีวิว</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="filterAdminReviews('all')" id="admin-filter-all" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#543B32] text-white shadow-sm custom-transition">ทั้งหมด (<span id="admin-count-all">0</span>)</button>
+                            <button onclick="filterAdminReviews('comment')" id="admin-filter-comment" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-[#543B32] border border-[#F4C760] hover:bg-[#FFFBE6] custom-transition">💬 เขียนรีวิว (<span id="admin-count-comment">0</span>)</button>
+                            <button onclick="filterAdminReviews('star')" id="admin-filter-star" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-[#543B32] border border-[#F4C760] hover:bg-[#FFFBE6] custom-transition">⭐ ดาวอย่างเดียว (<span id="admin-count-star">0</span>)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="admin-reviews-container">
                     </div>
                 </div>
             </div>
@@ -523,129 +422,101 @@
 
     </main>
 
-    <footer class="relative bg-white pt-16 pb-8 border-t border-pastel-100 mt-12 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDEyMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTMyMS4zOSw1Ni40NEMyMjguNTUsMjMuODgsMTM1LjI1LDEzLjk4LDUxLjgzLDQwTDAsNDUuMzRWMTE5SDEyMDBWNzIuNjNDMTE2Mi4yOCw1OS42OSwxMTIwLjc1LDUzLjU4LDEwNzgsNTNDOTc1Ljc3LDUxLjcxLDg2Ni42Niw3MS40Miw3NjUsODFjLTg4LjQyLDguMzYtMTczLjUzLDUuODItMjYyLDE2LjcxQzM5Ny45MSwxMDQuODEsMzYzLjEzLDg2LjMzLDMyMS4zOSw1Ni40NFoiIGZpbGw9IiNmZmZhZjAiPjwvcGF0aD48L3N2Zz4=')] bg-cover bg-repeat-x opacity-50 transform -translate-y-full"></div>
-        
-        <div class="max-w-3xl mx-auto px-4 text-center space-y-4">
-            <div class="w-16 h-16 mx-auto bg-pastel-100 rounded-2xl flex items-center justify-center text-pastel-400 text-2xl mb-4 shadow-sm rotate-6">
-                <i class="fa-solid fa-store"></i>
-            </div>
-            <p class="text-sm text-pastel-800 font-medium">
-                ติดต่อสอบถามเพิ่มเติม หรือ แจ้งปัญหาการใช้งานได้ที่<br>
-                <a href="https://lin.ee/5WwCcNQ" target="_blank" class="inline-flex items-center gap-1.5 mt-2 bg-[#00B900] text-white font-bold px-4 py-2 rounded-xl hover:bg-[#009900] custom-transition shadow-sm">
-                    <i class="fa-brands fa-line text-lg"></i> LINE OA: @655ayoko
-                </a>
-            </p>
-            <div class="w-12 h-1 bg-pastel-200 mx-auto rounded-full my-4"></div>
-            <p class="text-[10px] text-pastel-500 font-bold uppercase tracking-widest">
-                JUMBOOSHOP Rewards System &copy; 2026<br>
-                <span class="font-normal capitalize tracking-normal">Made with 💛 for our lovely customers</span>
-            </p>
-        </div>
+    <footer class="bg-white/80 border-t-2 border-[#ebdcca] mt-12 py-6 text-center text-xs text-[#543B32]/80 font-medium space-y-2 relative z-10">
+        <p>ติดต่อสอบถามเพิ่มเติม / แจ้งปัญหาการใช้งานผ่าน LINE OA: <a href="https://lin.ee/5WwCcNQ" target="_blank" class="text-emerald-700 font-bold hover:underline"><i class="fa-brands fa-line mr-0.5"></i> @655ayoko</a> 💚</p>
+        <p>JUMBOOSHOP Point Accumulation & Store Review System &copy; 2026. All rights reserved. 🍯</p>
     </footer>
 
     <!-- MODAL: Admin Supabase Auth Login -->
-    <div id="modal-admin-login" class="fixed inset-0 bg-pastel-900/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4 animate-[fadeIn_0.2s_ease-out]">
-        <div class="bg-white rounded-[2rem] max-w-sm w-full p-8 space-y-6 shadow-2xl border-4 border-pastel-100 transform transition-all">
-            <div class="text-center space-y-2">
-                <div class="bg-pastel-100 w-16 h-16 rounded-2xl flex items-center justify-center text-pastel-900 text-2xl mx-auto mb-4">
+    <div id="modal-admin-login" class="fixed inset-0 bg-[#543B32]/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-[#F4C760]">
+            <div class="text-center space-y-1">
+                <div class="bg-[#FFF3B0] w-14 h-14 rounded-2xl flex items-center justify-center text-[#543B32] text-2xl mx-auto shadow-md">
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <h3 class="font-black text-2xl text-pastel-900 font-playful">Admin Login</h3>
-                <p class="text-sm text-pastel-600 font-medium">เข้าสู่ระบบสำหรับผู้ดูแล</p>
+                <h3 class="font-extrabold text-lg text-[#543B32] font-playful">เข้าสู่ระบบผู้ดูแลระบบ</h3>
+                <p class="text-xs text-[#543B32]/80 font-medium">กรอกอีเมลและรหัสผ่าน Supabase ของแอดมิน</p>
             </div>
-            <div class="space-y-4">
-                <div class="relative">
-                    <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-pastel-400"></i>
-                    <input type="email" id="admin-email-input" placeholder="อีเมล" class="w-full pl-11 pr-4 py-3.5 rounded-xl border-2 border-pastel-100 focus:outline-none focus:border-pastel-400 focus:ring-2 focus:ring-pastel-50 text-sm bg-cream-50 font-medium text-pastel-900">
-                </div>
-                <div class="relative">
-                    <i class="fa-solid fa-key absolute left-4 top-1/2 -translate-y-1/2 text-pastel-400"></i>
-                    <input type="password" id="admin-pass-input" onkeydown="if(event.key === 'Enter') verifyAdminLogin()" placeholder="รหัสผ่าน" class="w-full pl-11 pr-4 py-3.5 rounded-xl border-2 border-pastel-100 focus:outline-none focus:border-pastel-400 focus:ring-2 focus:ring-pastel-50 font-mono tracking-widest bg-cream-50 font-bold text-pastel-900">
-                </div>
+            <div class="space-y-3">
+                <input type="email" id="admin-email-input" placeholder="อีเมลแอดมิน" class="w-full px-4 py-3 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] text-sm bg-[#FCF9F2] text-[#543B32] font-medium">
+                <input type="password" id="admin-pass-input" placeholder="รหัสผ่านแอดมิน" class="w-full px-4 py-3 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] text-center text-lg font-mono tracking-widest bg-[#FCF9F2] text-[#543B32] font-bold">
             </div>
-            <div class="flex space-x-3 pt-2">
-                <button onclick="closeAdminLoginModal()" class="flex-1 bg-white border-2 border-pastel-200 hover:bg-pastel-50 text-pastel-700 font-bold py-3.5 rounded-xl text-sm custom-transition">ยกเลิก</button>
-                <button onclick="verifyAdminLogin()" class="flex-1 bg-pastel-900 hover:bg-pastel-800 text-white font-bold py-3.5 rounded-xl text-sm shadow-cute custom-transition">เข้าสู่ระบบ</button>
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeAdminLoginModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
+                <button onclick="verifyAdminLogin()" class="flex-1 bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3 rounded-xl text-sm shadow-md custom-transition font-playful">เข้าสู่ระบบ</button>
             </div>
         </div>
     </div>
 
     <!-- MODAL: Set Points for Code -->
-    <div id="modal-set-points" class="fixed inset-0 bg-pastel-900/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4 animate-[fadeIn_0.2s_ease-out]">
-        <div class="bg-white rounded-[2rem] max-w-sm w-full p-8 space-y-6 shadow-2xl border-4 border-pastel-100">
-            <div class="text-center space-y-2">
-                <div class="bg-pastel-400 w-16 h-16 rounded-2xl flex items-center justify-center text-pastel-900 text-2xl mx-auto mb-4 shadow-cute">
+    <div id="modal-set-points" class="fixed inset-0 bg-[#543B32]/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-[#F4C760]">
+            <div class="text-center space-y-1">
+                <div class="bg-[#FFF3B0] w-14 h-14 rounded-2xl flex items-center justify-center text-[#543B32] text-2xl mx-auto shadow-md">
                     <i class="fa-solid fa-star"></i>
                 </div>
-                <h3 class="font-black text-2xl text-pastel-900 font-playful">ตั้งค่าแต้ม</h3>
-                <p class="text-sm text-pastel-600 font-medium">รหัส: <span id="modal-target-code" class="font-mono font-black text-pastel-900 bg-pastel-100 px-2 py-0.5 rounded ml-1"></span></p>
+                <h3 class="font-extrabold text-lg text-[#543B32] font-playful">กำหนดแต้มให้รหัสคิว</h3>
+                <p class="text-xs text-[#543B32]/80 font-medium">รหัสคิว: <span id="modal-target-code" class="font-mono font-extrabold text-[#543B32]"></span></p>
             </div>
             <div>
-                <label class="block text-xs font-bold text-pastel-700 uppercase tracking-wide mb-2 text-center">ระบุจำนวนแต้มที่ต้องการให้</label>
-                <input type="number" id="modal-points-input" min="0" onkeydown="if(event.key === 'Enter') saveAdminPoints()" placeholder="0" class="w-full px-4 py-4 rounded-2xl border-2 border-pastel-200 focus:outline-none focus:border-pastel-400 focus:ring-4 focus:ring-pastel-50 text-center text-4xl font-black bg-cream-50 text-pastel-900">
+                <label class="block text-xs font-bold text-[#543B32] mb-1">จำนวนแต้มที่ต้องการกำหนดตรง ๆ</label>
+                <input type="number" id="modal-points-input" min="0" placeholder="ตัวอย่าง: 5 หรือ 10" class="w-full px-4 py-3.5 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] text-center text-2xl font-black bg-[#FCF9F2] text-[#543B32]">
             </div>
-            <div class="flex space-x-3">
-                <button onclick="closeSetPointsModal()" class="flex-1 bg-white border-2 border-pastel-200 hover:bg-pastel-50 text-pastel-700 font-bold py-3.5 rounded-xl text-sm custom-transition">ยกเลิก</button>
-                <button onclick="saveAdminPoints()" class="flex-1 bg-pastel-400 hover:bg-pastel-500 text-pastel-900 font-black py-3.5 rounded-xl text-sm shadow-cute custom-transition">บันทึกแต้ม</button>
+            <div class="flex space-x-2">
+                <button onclick="closeSetPointsModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
+                <button onclick="saveAdminPoints()" class="flex-1 bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3 rounded-xl text-sm shadow-md custom-transition font-playful">บันทึกแต้ม</button>
             </div>
         </div>
     </div>
 
     <!-- MODAL: Confirm Clear History -->
-    <div id="modal-clear-history" class="fixed inset-0 bg-pastel-900/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4 animate-[fadeIn_0.2s_ease-out]">
-        <div class="bg-white rounded-[2rem] max-w-sm w-full p-8 space-y-6 shadow-2xl border-4 border-red-100 text-center">
-            <div class="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center text-red-500 text-3xl mx-auto mb-2 relative">
-                <div class="absolute inset-0 rounded-full border-4 border-red-100 animate-ping opacity-50"></div>
-                <i class="fa-solid fa-triangle-exclamation relative z-10"></i>
+    <div id="modal-clear-history" class="fixed inset-0 bg-[#543B32]/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-[#F4C760] text-center">
+            <div class="bg-red-100 w-14 h-14 rounded-2xl flex items-center justify-center text-red-600 text-2xl mx-auto shadow-md">
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="font-black text-xl text-pastel-900 font-playful">ลบประวัติทั้งหมด?</h3>
-            <p class="text-sm text-pastel-700 font-medium bg-red-50 p-3 rounded-xl border border-red-100">
-                ประวัติแต้มและรีวิวทั้งหมดจะหายไป <br>แน่ใจหรือไม่ว่าต้องการทำสิ่งนี้?
-            </p>
-            <div class="flex space-x-3 pt-2">
-                <button onclick="closeClearHistoryModal()" class="flex-1 bg-white border-2 border-pastel-200 hover:bg-pastel-50 text-pastel-700 font-bold py-3.5 rounded-xl text-sm custom-transition">ยกเลิก</button>
-                <button onclick="confirmClearHistory()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3.5 rounded-xl text-sm shadow-md custom-transition">ยืนยันลบ</button>
+            <h3 class="font-extrabold text-lg text-[#543B32] font-playful">ยืนยันการลบประวัติทั้งหมด</h3>
+            <p class="text-xs text-[#543B32]/80 font-medium">การดำเนินการนี้จะล้างประวัติการทำรายการและแต้มสะสมทั้งหมดในระบบ คุณต้องการดำเนินการต่อหรือไม่?</p>
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeClearHistoryModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
+                <button onclick="confirmClearHistory()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl text-sm shadow-md custom-transition">ยืนยันลบประวัติ</button>
             </div>
         </div>
     </div>
 
     <!-- MODAL: Reset System with Admin Auth -->
-    <div id="modal-reset-system" class="fixed inset-0 bg-pastel-900/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4 animate-[fadeIn_0.2s_ease-out]">
-        <div class="bg-white rounded-[2rem] max-w-sm w-full p-8 space-y-6 shadow-2xl border-4 border-red-100">
-            <div class="text-center space-y-2">
-                <div class="bg-red-50 w-16 h-16 rounded-2xl flex items-center justify-center text-red-500 text-2xl mx-auto mb-4">
+    <div id="modal-reset-system" class="fixed inset-0 bg-[#543B32]/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-[#F4C760]">
+            <div class="text-center space-y-1">
+                <div class="bg-red-100 w-14 h-14 rounded-2xl flex items-center justify-center text-red-600 text-2xl mx-auto shadow-md">
                     <i class="fa-solid fa-power-off"></i>
                 </div>
-                <h3 class="font-black text-xl text-pastel-900 font-playful">รีเซ็ตข้อมูลระบบ</h3>
-                <p class="text-xs text-pastel-600 font-medium">การกระทำนี้จะล้างข้อมูลทุกอย่าง <br>โปรดยืนยันรหัสผ่านแอดมินอีกครั้ง</p>
+                <h3 class="font-extrabold text-lg text-[#543B32] font-playful">ยืนยันการรีเซ็ตข้อมูลระบบ</h3>
+                <p class="text-xs text-[#543B32]/80 font-medium">ยืนยันรหัสผ่านแอดมินเพื่อล้างข้อมูลทั้งหมดในฐานข้อมูล</p>
             </div>
             <div>
-                <input type="password" id="reset-pass-input" onkeydown="if(event.key === 'Enter') confirmResetSystem()" placeholder="รหัสผ่านแอดมิน" class="w-full px-4 py-4 rounded-2xl border-2 border-red-200 focus:outline-none focus:border-red-400 focus:ring-4 focus:ring-red-50 text-center text-xl font-mono tracking-widest bg-white font-bold text-pastel-900">
+                <input type="password" id="reset-pass-input" placeholder="รหัสผ่านแอดมิน" class="w-full px-4 py-3.5 rounded-2xl border-2 border-red-200 focus:outline-none focus:border-red-500 text-center text-xl font-mono tracking-widest bg-[#FCF9F2] text-[#543B32] font-bold">
             </div>
-            <div class="flex space-x-3">
-                <button onclick="closeResetModal()" class="flex-1 bg-white border-2 border-pastel-200 hover:bg-pastel-50 text-pastel-700 font-bold py-3.5 rounded-xl text-sm custom-transition">ยกเลิก</button>
-                <button onclick="confirmResetSystem()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3.5 rounded-xl text-sm shadow-md custom-transition">รีเซ็ตทันที</button>
+            <div class="flex space-x-2">
+                <button onclick="closeResetModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl text-sm custom-transition">ยกเลิก</button>
+                <button onclick="confirmResetSystem()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl text-sm shadow-md custom-transition">รีเซ็ตข้อมูล</button>
             </div>
         </div>
     </div>
 
     <!-- Message Box Notification Modal -->
-    <div id="modal-msg" class="fixed inset-0 bg-pastel-900/40 backdrop-blur-sm z-[200] flex items-center justify-center hidden p-4 animate-[fadeIn_0.2s_ease-out]">
-        <div class="bg-white rounded-[2rem] max-w-xs w-full p-6 space-y-5 shadow-2xl border-4 border-white text-center">
-            <div id="msg-icon" class="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto bg-pastel-100 text-pastel-600 shadow-sm">
-                <i class="fa-solid fa-info"></i>
+    <div id="modal-msg" class="fixed inset-0 bg-[#543B32]/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border-2 border-[#F4C760] text-center">
+            <div id="msg-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mx-auto bg-[#FFFBE6] text-[#543B32] shadow-md">
+                <i class="fa-solid fa-circle-info"></i>
             </div>
-            <div>
-                <h3 id="msg-title" class="font-black text-lg text-pastel-900 font-playful mb-1">แจ้งเตือน</h3>
-                <p id="msg-body" class="text-sm text-pastel-700 font-medium"></p>
-            </div>
-            <button onclick="closeMsgModal()" class="w-full bg-pastel-900 hover:bg-pastel-800 text-white font-bold py-3.5 rounded-xl text-sm shadow-cute custom-transition">ตกลง</button>
+            <h3 id="msg-title" class="font-extrabold text-lg text-[#543B32] font-playful">แจ้งเตือน</h3>
+            <p id="msg-body" class="text-xs text-[#543B32] font-medium"></p>
+            <button onclick="closeMsgModal()" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3 rounded-2xl text-sm shadow-md custom-transition font-playful">ตกลง</button>
         </div>
     </div>
 
     <script>
-        // Supabase Configuration
         const SUPABASE_URL = 'https://fvdeertrvbxyylvayoqi.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZGVlcnRydmJ4eXlsdmF5b3FpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0NzA5NzMsImV4cCI6MjEwNTA0Njk3M30.qjinWvqAQv7ndOaXvspR_IhWy1-OiYOP5JfcVJqOlwk';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -667,13 +538,87 @@
         let currentPublicFilter = 'all';
         let currentAdminFilter = 'all';
 
+        function createSparkleParticles() {
+            const symbols = ['✦', '·', '✧', '⋆'];
+            for(let i=0; i<15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'sparkle-particle text-[#F4C760] text-xs font-bold';
+                particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                particle.style.left = `${Math.random() * 96}vw`;
+                particle.style.top = `${Math.random() * 96}vh`;
+                particle.style.animationDuration = `${Math.random() * 3 + 2.5}s`;
+                particle.style.animationDelay = `-${Math.random() * 3}s`;
+                document.body.appendChild(particle);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', createSparkleParticles);
+
+        window.addEventListener('mousemove', (e) => {
+            const follower = document.getElementById('mouse-follower');
+            if (follower) {
+                follower.style.left = `${e.clientX}px`;
+                follower.style.top = `${e.clientY}px`;
+            }
+        });
+
+        let audioContext = null;
+        function playClickSound() {
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, audioContext.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.12, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.start();
+                osc.stop(audioContext.currentTime + 0.08);
+            } catch (e) {}
+        }
+
+        function toggleBackgroundMusic() {
+            const bgMusic = document.getElementById('bg-music');
+            const musicIcon = document.getElementById('music-icon');
+            const musicText = document.getElementById('music-text');
+            
+            if (!bgMusic) return;
+
+            if (bgMusic.paused) {
+                bgMusic.volume = 0.4;
+                bgMusic.play().then(() => {
+                    musicIcon.className = "fa-solid fa-volume-high mr-1.5 text-[#543B32] animate-pulse";
+                    musicText.innerText = "ปิดเพลง";
+                }).catch(err => {
+                    console.log("Audio play error", err);
+                    showMessage("แจ้งเตือน", "ไม่สามารถเล่นเพลงได้ กรุณาตรวจสอบไฟล์เสียง Sunlight_On_The_Threshold.mp3", "error");
+                });
+            } else {
+                bgMusic.pause();
+                musicIcon.className = "fa-solid fa-volume-xmark mr-1.5 text-[#543B32]";
+                musicText.innerText = "เปิดเพลง";
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('a') || e.target.closest('input') || e.target.closest('textarea')) {
+                playClickSound();
+            }
+        });
+
         async function loadDataFromSupabase() {
             try {
-                // Fetch codes
                 const { data: codes, error: errCodes } = await supabaseClient.from('queue_codes').select('*').order('created_at', { ascending: true });
-                if (errCodes) console.error("Database Error (Codes):", errCodes);
+                if (errCodes) console.warn("Database Warning (Codes):", errCodes.message);
                 
-                if (!errCodes && codes) {
+                if (codes) {
                     codesData = codes.map(c => ({
                         id: c.id,
                         code: c.code,
@@ -688,14 +633,13 @@
                     }, 0);
                 }
 
-                // Fetch transactions
                 const { data: txs, error: errTxs } = await supabaseClient.from('transactions')
                     .select('*, main_code:queue_codes!main_code_id(code), current_code:queue_codes!current_code_id(code)')
                     .order('created_at', { ascending: false });
                 
-                if (errTxs) console.error("Database Error (Transactions):", errTxs);
+                if (errTxs) console.warn("Database Warning (Transactions):", errTxs.message);
 
-                if (!errTxs && txs) {
+                if (txs) {
                     transactionsData = txs.map(t => ({
                         id: t.id,
                         mainCode: t.main_code ? t.main_code.code : '',
@@ -706,14 +650,15 @@
                     }));
                 }
 
-                // Fetch reviews
                 const { data: revs, error: errRevs } = await supabaseClient.from('reviews')
                     .select('*, queue_code:queue_codes!queue_code_id(code), main_code:queue_codes!main_code_id(code)')
                     .order('created_at', { ascending: false });
                 
-                if (errRevs) console.error("Database Error (Reviews):", errRevs);
+                if (errRevs) {
+                    console.warn("Database Warning (Reviews):", errRevs.message);
+                }
 
-                if (!errRevs && revs) {
+                if (revs) {
                     reviewsData = revs.map(r => ({
                         id: r.id,
                         code: r.queue_code ? r.queue_code.code : '',
@@ -733,17 +678,15 @@
             document.getElementById('msg-title').innerText = title;
             document.getElementById('msg-body').innerText = body;
             const iconBox = document.getElementById('msg-icon');
-            
-            // Apply pastel theme to message boxes
             if (type === 'error') {
-                iconBox.className = "w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto bg-red-50 text-red-500 shadow-sm";
+                iconBox.className = "w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mx-auto bg-red-100 text-red-600 shadow-md";
                 iconBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
             } else if (type === 'success') {
-                iconBox.className = "w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto bg-green-50 text-green-500 shadow-sm";
+                iconBox.className = "w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mx-auto bg-emerald-100 text-emerald-600 shadow-md";
                 iconBox.innerHTML = '<i class="fa-solid fa-check"></i>';
             } else {
-                iconBox.className = "w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto bg-pastel-100 text-pastel-600 shadow-sm";
-                iconBox.innerHTML = '<i class="fa-solid fa-info"></i>';
+                iconBox.className = "w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mx-auto bg-[#FFFBE6] text-[#543B32] shadow-md";
+                iconBox.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
             }
             document.getElementById('modal-msg').classList.remove('hidden');
         }
@@ -759,11 +702,7 @@
             });
 
             const target = document.getElementById(`view-${viewName}`);
-            if (target) {
-                target.classList.remove('hidden');
-                // Add tiny fade-in animation
-                target.classList.add('animate-[fadeIn_0.3s_ease-out]');
-            }
+            if (target) target.classList.remove('hidden');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -792,40 +731,20 @@
                 return;
             }
 
-            // Simple loading state
-            const btn = event.currentTarget;
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> กำลังตรวจสอบ...';
-            btn.disabled = true;
-
             await loadDataFromSupabase();
-            
-            btn.innerHTML = originalContent;
-            btn.disabled = false;
-
             const record = findCodeRecord(inputVal);
             resultBox.classList.remove('hidden');
 
-            // Updated result box design
             if (!record) {
                 resultBox.innerHTML = `
-                    <div class="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-xl mx-auto mb-2"><i class="fa-solid fa-xmark"></i></div>
-                    <div class="text-red-500 font-bold text-sm">ไม่พบรหัสคิวนี้ในระบบ</div>
-                    <p class="text-xs text-pastel-700 font-medium mt-1">โปรดตรวจสอบว่าพิมพ์รหัส ${inputVal} ถูกต้องหรือไม่</p>
+                    <div class="text-red-500 font-bold text-sm"><i class="fa-solid fa-circle-xmark mr-1"></i> โปรดตรวจสอบรหัสอีกครั้ง</div>
+                    <p class="text-xs text-[#543B32]/80 font-medium">ไม่พบรหัส ${inputVal} ในระบบ หรือยังไม่ได้ถูกออกรหัสโดยแอดมิน</p>
                 `;
             } else {
                 resultBox.innerHTML = `
-                    <div class="text-xs text-pastel-600 font-bold uppercase tracking-widest bg-white border border-pastel-200 px-3 py-1 rounded-full inline-block mx-auto mb-2 shadow-sm">
-                        รหัส: <span class="font-mono text-pastel-900">${record.code}</span>
-                    </div>
-                    <div class="text-5xl font-black text-pastel-900 my-2 drop-shadow-sm">
-                        ${record.totalAccumulatedPoints} 
-                    </div>
-                    <div class="text-sm font-bold text-pastel-700 mb-4">แต้มสะสมทั้งหมด</div>
-                    
-                    <div class="bg-green-50 text-green-600 text-xs font-bold py-2 px-4 rounded-xl inline-flex items-center gap-2 border border-green-100">
-                        <i class="fa-solid fa-circle-check"></i> รหัสถูกต้องและพร้อมใช้งาน
-                    </div>
+                    <div class="text-xs text-[#543B32] font-bold">รหัสคิวหลัก: <span class="font-mono font-black text-[#543B32]">${record.code}</span></div>
+                    <div class="text-3xl font-black text-[#543B32] my-1">${record.totalAccumulatedPoints} <span class="text-sm font-bold text-[#543B32]/80">แต้มสะสมทั้งหมด</span></div>
+                    <div class="text-xs text-emerald-600 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> รหัสถูกต้องและเปิดใช้งานแล้ว</div>
                 `;
             }
         }
@@ -840,48 +759,37 @@
 
             switchView('service-login');
 
-            // Updated service flow UI
             if (type === 'first') {
-                titleEl.innerText = "เริ่มใช้บริการครั้งแรก";
-                descEl.innerText = "ยินดีต้อนรับ! กรอกรหัสที่ได้รับจากทางร้านเพื่อเริ่มสะสมแต้ม";
-                iconBox.innerHTML = '<i class="fa-solid fa-hand-sparkles text-amber-500"></i>';
+                titleEl.innerText = "ใช้บริการครั้งแรก";
+                descEl.innerText = "กรุณากรอกรหัสที่ได้รับจากใบเสร็จหรือรหัสที่ใช้ดูสถานะงานเพื่อใช้ในการสะสมแต้ม";
+                iconBox.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
                 fieldsEl.innerHTML = `
                     <div>
-                        <label class="block text-sm font-bold text-pastel-900 mb-2 pl-2">รหัสคิวใหม่ของคุณ</label>
-                        <input type="text" id="input-first-code" onkeydown="if(event.key === 'Enter') verifyFirstService()" placeholder="เช่น JB0001-Q" class="w-full px-5 py-4 rounded-2xl border-2 border-pastel-200 focus:outline-none focus:border-pastel-400 focus:ring-4 focus:ring-pastel-100 uppercase font-mono tracking-widest text-center text-xl bg-white font-bold text-pastel-900 shadow-inner custom-transition">
+                        <label class="block text-xs font-bold text-[#543B32] mb-1.5">รหัสคิวหลัก</label>
+                        <input type="text" id="input-first-code" placeholder="JB0001-Q" class="w-full px-4 py-3.5 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] uppercase font-mono tracking-wide text-center text-lg bg-[#FCF9F2] text-[#543B32] font-bold">
                     </div>
-                    <button onclick="verifyFirstService()" class="w-full group bg-pastel-400 hover:bg-pastel-500 text-pastel-900 font-black py-4 rounded-2xl shadow-cute custom-transition font-playful text-lg flex justify-center items-center gap-2">
-                        <span>ถัดไป</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 custom-transition"></i>
+                    <button onclick="verifyFirstService()" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3.5 rounded-2xl shadow-md custom-transition font-playful">
+                        ตรวจสอบและดำเนินการต่อ ✨
                     </button>
                 `;
             } else {
-                titleEl.innerText = "ลูกค้าเก่ากลับมาใช้บริการ";
-                descEl.innerText = "กรอกรหัสเดิมและรหัสใหม่เพื่อสะสมแต้มต่อเนื่อง";
-                iconBox.innerHTML = '<i class="fa-solid fa-rotate-right text-amber-500"></i>';
+                titleEl.innerText = "เคยใช้บริการแล้ว";
+                descEl.innerText = "กรุณากรอกรหัสคิวหลักเดิม และรหัสคิวปัจจุบัน";
+                iconBox.innerHTML = '<i class="fa-solid fa-rotate-right"></i>';
                 fieldsEl.innerHTML = `
-                    <div class="relative pb-4">
-                        <label class="block text-xs font-bold text-pastel-500 uppercase tracking-widest mb-1.5 pl-2">รหัสสะสมแต้มเดิม (รหัสหลัก)</label>
-                        <input type="text" id="input-return-main" placeholder="รหัสคิวแรกของคุณ" class="w-full px-4 py-3.5 rounded-2xl border-2 border-pastel-200 focus:outline-none focus:border-pastel-400 focus:ring-2 focus:ring-pastel-100 uppercase font-mono tracking-widest text-center text-lg bg-white font-bold text-pastel-900 shadow-inner custom-transition">
-                        
-                        <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-6 bg-cream-50 border border-pastel-200 rounded-full flex items-center justify-center text-pastel-400 text-[10px] z-10">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#543B32] mb-1">1. รหัสคิวแรก / รหัสคิวหลัก</label>
+                        <input type="text" id="input-return-main" placeholder="JB0001-Q" class="w-full px-4 py-3 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] uppercase font-mono tracking-wide text-center text-base bg-[#FCF9F2] text-[#543B32] font-bold">
                     </div>
-                    <div class="pt-2">
-                        <label class="block text-xs font-bold text-pastel-500 uppercase tracking-widest mb-1.5 pl-2">รหัสคิวปัจจุบัน (ใหม่)</label>
-                        <input type="text" id="input-return-current" onkeydown="if(event.key === 'Enter') verifyReturningService()" placeholder="รหัสคิวของวันนี้" class="w-full px-4 py-3.5 rounded-2xl border-2 border-pastel-200 focus:outline-none focus:border-pastel-400 focus:ring-2 focus:ring-pastel-100 uppercase font-mono tracking-widest text-center text-lg bg-white font-bold text-pastel-900 shadow-inner custom-transition">
+                    <div>
+                        <label class="block text-xs font-bold text-[#543B32] mb-1">2. รหัสคิวปัจจุบัน</label>
+                        <input type="text" id="input-return-current" placeholder="JB0002-Q" class="w-full px-4 py-3 rounded-2xl border-2 border-[#F4C760] focus:outline-none focus:border-[#e0b450] uppercase font-mono tracking-wide text-center text-base bg-[#FCF9F2] text-[#543B32] font-bold">
                     </div>
-                    <button onclick="verifyReturningService()" class="w-full group bg-pastel-400 hover:bg-pastel-500 text-pastel-900 font-black py-4 rounded-2xl shadow-cute custom-transition font-playful text-lg flex justify-center items-center gap-2 mt-4">
-                        <span>ตรวจสอบรหัส</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 custom-transition"></i>
+                    <button onclick="verifyReturningService()" class="w-full bg-[#F4C760] hover:bg-[#e0b450] text-[#543B32] font-extrabold py-3.5 rounded-2xl shadow-md custom-transition font-playful">
+                        ตรวจสอบรหัสทั้งสอง ✨
                     </button>
                 `;
             }
-            
-            // Auto focus input
-            setTimeout(() => {
-                const input = document.getElementById('input-first-code') || document.getElementById('input-return-main');
-                if(input) input.focus();
-            }, 100);
         }
 
         async function verifyFirstService() {
@@ -962,9 +870,9 @@
             const stars = document.querySelectorAll('#star-rating-container i');
             stars.forEach((star, index) => {
                 if (index < currentReviewRating) {
-                    star.className = "fa-solid fa-star text-amber-400 hover:scale-125 hover:-rotate-12 custom-transition";
+                    star.className = "fa-solid fa-star text-[#e0b450] hover:scale-110 custom-transition";
                 } else {
-                    star.className = "fa-solid fa-star text-pastel-200 hover:scale-125 hover:-rotate-12 custom-transition";
+                    star.className = "fa-regular fa-star text-[#F4C760]/80 hover:scale-110 custom-transition";
                 }
             });
 
@@ -989,17 +897,10 @@
                 showMessage("แจ้งเตือน", "เกิดข้อผิดพลาดในการหารหัสคิวในระบบ", "error");
                 return;
             }
-            
-            // Loading UI on button
-            const btn = event.currentTarget;
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-notch fa-spin"></i> กำลังส่งรีวิว...</div>';
-            btn.disabled = true;
 
             const pointsToAdd = currRec.assignedPoints;
             const newTotalPoints = mainRec.totalAccumulatedPoints + pointsToAdd;
 
-            // Update queue code status
             if (currRec.id === mainRec.id) {
                 await supabaseClient.from('queue_codes').update({ is_reviewed: true, total_accumulated_points: newTotalPoints }).eq('id', currRec.id);
             } else {
@@ -1007,7 +908,6 @@
                 await supabaseClient.from('queue_codes').update({ total_accumulated_points: newTotalPoints }).eq('id', mainRec.id);
             }
 
-            // Insert transaction
             await supabaseClient.from('transactions').insert({
                 main_code_id: mainRec.id,
                 current_code_id: currRec.id,
@@ -1015,7 +915,6 @@
                 total_accumulated: newTotalPoints
             });
 
-            // Insert review
             await supabaseClient.from('reviews').insert({
                 queue_code_id: currRec.id,
                 main_code_id: mainRec.id,
@@ -1025,24 +924,12 @@
             });
 
             await loadDataFromSupabase();
-            
-            btn.innerHTML = originalContent;
-            btn.disabled = false;
-            
-            showSuccessPage(newTotalPoints, pointsToAdd);
+            showSuccessPage(newTotalPoints);
         }
 
-        function showSuccessPage(totalPoints, gainedPoints) {
+        function showSuccessPage(totalPoints) {
             document.getElementById('success-main-code').innerText = currentSession.mainCode;
             document.getElementById('success-points-gained').innerText = totalPoints;
-            
-            const addedDisplay = document.getElementById('success-points-added-display');
-            if (gainedPoints > 0) {
-                addedDisplay.innerText = `+${gainedPoints}`;
-                addedDisplay.classList.remove('hidden');
-            } else {
-                addedDisplay.classList.add('hidden');
-            }
 
             const milestoneAlert = document.getElementById('success-milestone-alert');
             if (totalPoints >= 10) {
@@ -1059,9 +946,9 @@
             ['all', 'comment', 'star'].forEach(type => {
                 const btn = document.getElementById(`pub-filter-${type}`);
                 if (type === filterType) {
-                    btn.className = "px-4 py-2 text-xs font-bold rounded-xl bg-pastel-900 text-white shadow-sm custom-transition";
+                    btn.className = "px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#543B32] text-white shadow-sm custom-transition";
                 } else {
-                    btn.className = "px-4 py-2 text-xs font-bold rounded-xl bg-transparent text-pastel-700 hover:bg-pastel-50 border border-transparent hover:border-pastel-200 custom-transition";
+                    btn.className = "px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-[#543B32] border border-[#F4C760] hover:bg-[#FFFBE6] custom-transition";
                 }
             });
             renderPublicReviews();
@@ -1086,65 +973,46 @@
                 filteredReviews = reviewsData.filter(r => !r.hasComment);
             }
 
-            // Updated empty state design
             if (filteredReviews.length === 0) {
                 container.innerHTML = `
-                    <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-16 bg-white/50 backdrop-blur-sm rounded-[2rem] border-2 border-dashed border-pastel-200 text-pastel-500 text-sm font-medium shadow-sm">
-                        <div class="w-16 h-16 bg-pastel-100 rounded-full flex items-center justify-center text-pastel-300 text-3xl mx-auto mb-4">
-                            <i class="fa-regular fa-comment-dots"></i>
-                        </div>
-                        อ๊ะ! ยังไม่มีรีวิวในหมวดหมู่นี้<br><span class="text-xs opacity-70 mt-1 block">มารีวิวเป็นคนแรกกันเถอะ 💛</span>
+                    <div class="col-span-2 text-center py-12 bg-white rounded-3xl border-2 border-[#ebdcca] text-[#543B32]/80 text-sm font-medium shadow-sm">
+                        <i class="fa-solid fa-comments text-4xl mb-3 text-[#F4C760]"></i><br>ยังไม่มีรีวิวในหมวดหมู่นี้ 💛
                     </div>
                 `;
                 return;
             }
 
-            // Updated review card design to match the cute UI
             const sortedReviews = [...filteredReviews].reverse();
-            sortedReviews.forEach((rev, index) => {
+            sortedReviews.forEach(rev => {
                 let starsHtml = '';
                 for (let i = 1; i <= 5; i++) {
                     if (i <= rev.rating) {
-                        starsHtml += '<i class="fa-solid fa-star text-amber-400 text-sm drop-shadow-sm"></i>';
+                        starsHtml += '<i class="fa-solid fa-star text-[#e0b450] text-xs"></i>';
                     } else {
-                        starsHtml += '<i class="fa-solid fa-star text-pastel-200 text-sm"></i>';
+                        starsHtml += '<i class="fa-regular fa-star text-[#F4C760] text-xs"></i>';
                     }
                 }
-                
-                // Add staggered animation delay
-                const animDelay = (index % 10) * 0.1;
 
                 let cardHtml = `
-                    <div class="bg-white rounded-3xl p-6 shadow-card border border-pastel-100 space-y-4 custom-transition hover:border-pastel-300 hover:shadow-cute hover:-translate-y-1 relative overflow-hidden group animate-[fadeIn_0.5s_ease-out_both]" style="animation-delay: ${animDelay}s">
-                        
-                        <div class="flex justify-between items-start relative z-10">
+                    <div class="bg-white rounded-3xl p-5 pastel-shadow border-2 border-[#ebdcca] space-y-3 custom-transition hover:border-[#F4C760]">
+                        <div class="flex justify-between items-start">
                             <div>
-                                <div class="flex items-center gap-2 mb-1">
-                                    <div class="w-7 h-7 rounded-full bg-gradient-to-br from-pastel-200 to-pastel-300 flex items-center justify-center text-[10px] text-pastel-800 font-black font-playful shadow-sm">
-                                        <i class="fa-solid fa-user"></i>
-                                    </div>
-                                    <span class="font-mono font-bold text-[11px] text-pastel-600 bg-pastel-50 px-2 py-0.5 rounded border border-pastel-100">
-                                        ID: ${rev.code.split('-')[0]}
-                                    </span>
-                                </div>
-                                <div class="flex space-x-0.5 mt-2 ml-1">${starsHtml}</div>
+                                <span class="font-mono font-bold text-xs bg-[#FFF3B0] text-[#543B32] px-3 py-1.5 rounded-full shadow-xs">รหัสคิว: ${rev.code}</span>
+                                <div class="flex space-x-1 mt-2">${starsHtml}</div>
                             </div>
                             <div class="text-right">
-                                <span class="text-[10px] text-pastel-400 font-bold tracking-wider uppercase">${rev.date}</span>
-                                <span class="text-[9px] font-bold px-2 py-1 rounded-full mt-2 inline-flex items-center gap-1 ${rev.hasComment ? 'bg-amber-100 text-amber-800' : 'bg-pastel-50 text-pastel-500 border border-pastel-100'}">
-                                    ${rev.hasComment ? '<i class="fa-solid fa-quote-left text-[8px]"></i> รีวิว' : '<i class="fa-solid fa-star text-[8px]"></i> ให้ดาว'}
+                                <span class="text-xs text-[#543B32]/60 font-medium block">${rev.date}</span>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md mt-1 inline-block ${rev.hasComment ? 'bg-[#FFFBE6] text-[#543B32]' : 'bg-yellow-50 text-[#e0b450] border border-yellow-200'}">
+                                    ${rev.hasComment ? '💬 เขียนรีวิว' : '⭐ ดาวอย่างเดียว'}
                                 </span>
                             </div>
                         </div>
                 `;
 
                 if (rev.hasComment) {
-                    cardHtml += `<div class="relative mt-2">
-                        <i class="fa-solid fa-quote-left absolute -top-1 -left-1 text-2xl text-pastel-100 -z-10"></i>
-                        <p class="text-pastel-800 text-sm font-medium leading-relaxed z-10 relative ml-2">${rev.comment}</p>
-                    </div>`;
+                    cardHtml += `<p class="text-[#543B32] text-sm bg-[#FCF9F2] p-3.5 rounded-2xl border border-[#ebdcca] font-medium">"${rev.comment}"</p>`;
                 } else {
-                    cardHtml += `<div class="flex items-center justify-center py-2"><span class="bg-pastel-50 text-pastel-400 text-xs px-3 py-1 rounded-full border border-pastel-100 border-dashed">ลูกค้ารีวิวแบบให้ดาวอย่างเดียว 💛</span></div>`;
+                    cardHtml += `<p class="text-[#543B32]/60 text-xs italic font-medium">รีวิวแบบให้คะแนนดาวอย่างเดียว</p>`;
                 }
 
                 cardHtml += `</div>`;
@@ -1170,17 +1038,10 @@
                 return;
             }
 
-            // Button loading
-            const btn = event.currentTarget || document.querySelector('#modal-admin-login button:nth-child(2)');
-            const originalText = btn.innerText;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
-
             const { data: authData, error: authError } = await supabaseClient.auth.signInWithPassword({
                 email: email,
                 password: password
             });
-
-            btn.innerText = originalText;
 
             if (authError || !authData.user) {
                 showMessage("แจ้งเตือน", "อีเมลหรือรหัสผ่านไม่ถูกต้อง", "error");
@@ -1195,7 +1056,7 @@
 
             if (adminError || !adminData) {
                 await supabaseClient.auth.signOut();
-                showMessage("แจ้งเตือน", "บัญชีนี้ไม่มีสิทธิ์เข้าถึงระบบผู้ดูแล", "error");
+                showMessage("แจ้งเตือน", "บัญชีนี้ไม่มีสิทธิ์เข้าถึงระบบผู้ดูแลระบบ", "error");
                 return;
             }
 
@@ -1213,11 +1074,11 @@
             const tabs = ['codes', 'points', 'reviews'];
             tabs.forEach(t => {
                 document.getElementById(`admin-tab-${t}`).classList.add('hidden');
-                document.getElementById(`admin-tab-btn-${t}`).className = "px-6 py-3 text-sm font-bold rounded-xl bg-transparent text-pastel-700 hover:bg-pastel-50 custom-transition font-playful flex items-center gap-2 flex-1 md:flex-none justify-center";
+                document.getElementById(`admin-tab-btn-${t}`).className = "px-4 py-2.5 text-sm font-bold rounded-2xl bg-white text-[#543B32] hover:bg-[#FFFBE6] border border-[#F4C760] custom-transition font-playful";
             });
 
             document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`admin-tab-btn-${tabName}`).className = "px-6 py-3 text-sm font-bold rounded-xl bg-pastel-900 text-white shadow-md custom-transition font-playful flex items-center gap-2 flex-1 md:flex-none justify-center";
+            document.getElementById(`admin-tab-btn-${tabName}`).className = "px-4 py-2.5 text-sm font-bold rounded-2xl bg-[#543B32] text-white shadow-md custom-transition font-playful";
         }
 
         async function adminGenerateCode() {
@@ -1232,18 +1093,13 @@
             });
 
             if (error) {
-                showMessage("แจ้งเตือน", "ไม่สามารถสร้างรหัสคิวได้", "error");
+                showMessage("แจ้งเตือน", "ไม่สามารถสร้างรหัสคิวได้ (กรุณาตรวจสอบสิทธิ์แอดมิน)", "error");
                 return;
             }
 
             await loadDataFromSupabase();
             renderAdminCodes();
-            
-            // Show inline toast instead of modal for faster workflow
-            const btn = document.getElementById('admin-code-count');
-            const orig = btn.innerText;
-            btn.innerHTML = `<span class="text-green-600"><i class="fa-solid fa-check"></i> สร้าง ${newCodeStr}</span>`;
-            setTimeout(() => { btn.innerText = `${codesData.length} รหัส`; }, 2000);
+            showMessage("สำเร็จ", `สร้างรหัสคิวใหม่ ${newCodeStr} สำเร็จ (มี 0 แต้มเริ่มต้น)`, "success");
         }
 
         function renderAdminCodes() {
@@ -1253,35 +1109,30 @@
             countBadge.innerText = `${codesData.length} รหัส`;
 
             if (codesData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-pastel-500 font-medium bg-pastel-50/50">ไม่มีข้อมูลรหัสคิว</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-[#543B32]/60 font-medium">ยังไม่มีรหัสคิวในระบบ กดปุ่ม "ออกรหัสคิวถัดไป" ด้านบน</td></tr>`;
                 return;
             }
 
-            // Sort so newest is on top usually, or keep chronological. Keeping current logic.
-            [...codesData].reverse().forEach(item => {
+            // Reverse codesData so newest generated code appears at the top
+            const reversedCodes = [...codesData].reverse();
+
+            reversedCodes.forEach(item => {
                 const statusBadge = item.isReviewed 
-                    ? '<span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider"><i class="fa-solid fa-check mr-1"></i> รีวิวแล้ว</span>'
-                    : '<span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> รอรีวิว</span>';
+                    ? '<span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-check mr-1"></i> รีวิวแล้ว</span>'
+                    : '<span class="bg-[#FFFBE6] text-[#543B32] text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-clock mr-1"></i> ยังไม่ได้รีวิว</span>';
 
                 tbody.innerHTML += `
-                    <tr class="hover:bg-pastel-50/50 custom-transition group">
-                        <td class="p-4 font-mono font-bold text-pastel-900 border-b border-pastel-50">
-                            ${item.code}
-                            ${item.totalAccumulatedPoints > 0 ? `<br><span class="text-[10px] text-pastel-500 font-sans">สะสมรวม: ${item.totalAccumulatedPoints}</span>` : ''}
-                        </td>
-                        <td class="p-4 border-b border-pastel-50">
-                            <span class="font-bold text-pastel-800 bg-cream-50 px-2 py-1 rounded-lg border border-pastel-100">${item.assignedPoints} <span class="text-xs font-normal">แต้ม</span></span>
-                        </td>
-                        <td class="p-4 border-b border-pastel-50">${statusBadge}</td>
-                        <td class="p-4 border-b border-pastel-50 text-right">
-                            <div class="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button onclick="openSetPointsModalPrompt('${item.code}')" class="w-8 h-8 flex items-center justify-center bg-pastel-100 hover:bg-pastel-300 text-pastel-800 rounded-lg custom-transition" title="กำหนดแต้ม">
-                                    <i class="fa-solid fa-star text-xs"></i>
-                                </button>
-                                <button onclick="if(confirm('ยืนยันการลบรหัสคิว ${item.code}?')) deleteCodeItem('${item.id}')" class="w-8 h-8 flex items-center justify-center bg-red-50 hover:bg-red-100 text-red-500 rounded-lg custom-transition" title="ลบรหัส">
-                                    <i class="fa-solid fa-trash-can text-xs"></i>
-                                </button>
-                            </div>
+                    <tr class="hover:bg-[#FFFBE6]/50 custom-transition border-b border-[#ebdcca]/50">
+                        <td class="p-3.5 font-mono font-bold text-[#543B32]">${item.code}</td>
+                        <td class="p-3.5 font-bold text-[#e0b450]">${item.assignedPoints} แต้ม</td>
+                        <td class="p-3.5">${statusBadge}</td>
+                        <td class="p-3.5 text-right space-x-2">
+                            <button onclick="openSetPointsModalPrompt('${item.code}')" class="bg-[#FFF3B0] hover:bg-[#F4C760] text-[#543B32] text-xs font-bold px-3.5 py-2 rounded-xl shadow-xs custom-transition">
+                                <i class="fa-solid fa-star mr-1"></i> กำหนดแต้ม
+                            </button>
+                            <button onclick="deleteCodeItem('${item.id}')" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold px-3 py-2 rounded-xl custom-transition" title="ลบรหัส">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 `;
@@ -1294,20 +1145,18 @@
                 showMessage("แจ้งเตือน", "ไม่สามารถลบรหัสได้", "error");
                 return;
             }
+
             await loadDataFromSupabase();
             renderAdminCodes();
+            showMessage("สำเร็จ", `ลบรหัสเรียบร้อยแล้ว`, "success");
         }
 
         function openSetPointsModalPrompt(codeStr) {
             selectedCodeForPoints = codeStr;
             document.getElementById('modal-target-code').innerText = codeStr;
             const rec = findCodeRecord(codeStr);
-            
-            const input = document.getElementById('modal-points-input');
-            input.value = rec ? rec.assignedPoints : 0;
-            
+            document.getElementById('modal-points-input').value = rec ? rec.assignedPoints : 0;
             document.getElementById('modal-set-points').classList.remove('hidden');
-            setTimeout(() => input.focus(), 100); // Auto focus input
         }
         function closeSetPointsModal() {
             document.getElementById('modal-set-points').classList.add('hidden');
@@ -1317,7 +1166,7 @@
         async function saveAdminPoints() {
             const val = parseInt(document.getElementById('modal-points-input').value);
             if (isNaN(val) || val < 0) {
-                showMessage("แจ้งเตือน", "กรุณากรอกจำนวนแต้มให้ถูกต้อง", "error");
+                showMessage("แจ้งเตือน", "กรุณากรอกจำนวนแต้มให้ถูกต้อง (ต้องเป็นตัวเลข 0 หรือบวกขึ้นไป)", "error");
                 return;
             }
 
@@ -1332,6 +1181,7 @@
                 await loadDataFromSupabase();
                 renderAdminCodes();
                 closeSetPointsModal();
+                showMessage("สำเร็จ", `กำหนดแต้มให้รหัส ${selectedCodeForPoints} เป็นจำนวน ${val} แต้มเรียบร้อยแล้ว`, "success");
             }
         }
 
@@ -1346,20 +1196,17 @@
             }
 
             if (filteredTransactions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-10 text-pastel-500 font-medium bg-pastel-50/50">ไม่มีข้อมูลประวัติ</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-[#543B32]/60 font-medium">ยังไม่มีประวัติการสะสมแต้ม หรือไม่พบรหัสหลักที่ค้นหา</td></tr>`;
                 return;
             }
 
             filteredTransactions.forEach(tx => {
                 tbody.innerHTML += `
-                    <tr class="hover:bg-pastel-50/50 custom-transition">
-                        <td class="p-4 font-mono font-bold text-pastel-900 border-b border-pastel-50">${tx.mainCode}</td>
-                        <td class="p-4 font-mono text-pastel-600 border-b border-pastel-50">${tx.currentCode}</td>
-                        <td class="p-4 border-b border-pastel-50">
-                            <span class="text-green-600 font-bold bg-green-50 px-2 py-1 rounded-md text-xs">+${tx.pointsGained}</span>
-                        </td>
-                        <td class="p-4 font-black text-pastel-900 border-b border-pastel-50">${tx.totalAccumulated}</td>
-                        <td class="p-4 text-[10px] text-pastel-500 uppercase tracking-wider font-bold border-b border-pastel-50">${tx.timestamp.split(' ')[0]}<br>${tx.timestamp.split(' ')[1]}</td>
+                    <tr class="hover:bg-[#FFFBE6]/50 custom-transition border-b border-[#ebdcca]/50">
+                        <td class="p-3.5 font-mono font-bold text-[#543B32]">${tx.mainCode}</td>
+                        <td class="p-3.5 font-mono text-[#543B32]/90">${tx.currentCode}</td>
+                        <td class="p-3.5 font-bold text-[#e0b450]">${tx.pointsGained} แต้ม</td>
+                        <td class="p-3.5 font-black text-[#543B32]">${tx.totalAccumulated} แต้ม</td>
                     </tr>
                 `;
             });
@@ -1373,11 +1220,6 @@
         }
         
         async function confirmClearHistory() {
-            const btn = document.querySelector('#modal-clear-history button:nth-child(2)');
-            const orig = btn.innerText;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังลบ...';
-            btn.disabled = true;
-
             await supabaseClient.from('transactions').delete().not('id', 'is', null);
             await supabaseClient.from('reviews').delete().not('id', 'is', null);
             await supabaseClient.from('queue_codes').update({ total_accumulated_points: 0, is_reviewed: false }).not('id', 'is', null);
@@ -1387,9 +1229,7 @@
             renderAdminPoints();
             renderAdminReviews();
             renderPublicReviews();
-            
-            btn.innerText = orig;
-            btn.disabled = false;
+            showMessage("สำเร็จ", "ลบประวัติธุรกรรมและรีวิวทั้งหมดเรียบร้อยแล้ว", "success");
         }
 
         function filterAdminReviews(filterType) {
@@ -1397,9 +1237,9 @@
             ['all', 'comment', 'star'].forEach(type => {
                 const btn = document.getElementById(`admin-filter-${type}`);
                 if (type === filterType) {
-                    btn.className = "px-4 py-2 text-xs font-bold rounded-lg bg-pastel-900 text-white shadow-sm custom-transition";
+                    btn.className = "px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#543B32] text-white shadow-sm custom-transition";
                 } else {
-                    btn.className = "px-4 py-2 text-xs font-bold rounded-lg bg-transparent text-pastel-700 hover:bg-white custom-transition";
+                    btn.className = "px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white text-[#543B32] border border-[#F4C760] hover:bg-[#FFFBE6] custom-transition";
                 }
             });
             renderAdminReviews();
@@ -1413,7 +1253,7 @@
             const commentCount = reviewsData.filter(r => r.hasComment).length;
             const starCount = reviewsData.filter(r => !r.hasComment).length;
 
-            document.getElementById('admin-review-count').innerText = totalCount;
+            document.getElementById('admin-review-count').innerText = `${totalCount} รีวิว`;
             document.getElementById('admin-count-all').innerText = totalCount;
             document.getElementById('admin-count-comment').innerText = commentCount;
             document.getElementById('admin-count-star').innerText = starCount;
@@ -1426,7 +1266,7 @@
             }
 
             if (filteredReviews.length === 0) {
-                container.innerHTML = `<div class="col-span-1 lg:col-span-2 text-center py-10 bg-pastel-50/50 rounded-2xl text-pastel-500 text-sm font-medium">ไม่มีข้อมูลรีวิว</div>`;
+                container.innerHTML = `<div class="col-span-2 text-center py-8 text-[#543B32]/60 font-medium text-sm">ยังไม่มีรีวิวในหมวดหมู่นี้</div>`;
                 return;
             }
 
@@ -1434,37 +1274,28 @@
                 let starsHtml = '';
                 for (let i = 1; i <= 5; i++) {
                     if (i <= rev.rating) {
-                        starsHtml += '<i class="fa-solid fa-star text-amber-400 text-xs"></i>';
+                        starsHtml += '<i class="fa-solid fa-star text-[#e0b450] text-xs"></i>';
                     } else {
-                        starsHtml += '<i class="fa-solid fa-star text-pastel-200 text-xs"></i>';
+                        starsHtml += '<i class="fa-regular fa-star text-[#F4C760] text-xs"></i>';
                     }
                 }
 
                 container.innerHTML += `
-                    <div class="bg-white rounded-2xl p-5 border border-pastel-100 shadow-sm relative overflow-hidden group hover:border-pastel-300 custom-transition">
-                        <div class="absolute right-0 top-0 w-16 h-16 bg-pastel-50 rounded-bl-full -z-10 group-hover:bg-pastel-100 custom-transition"></div>
-                        <div class="flex justify-between items-start mb-3">
+                    <div class="bg-[#FCF9F2] rounded-3xl p-5 border-2 border-[#ebdcca] space-y-2.5">
+                        <div class="flex justify-between items-start">
                             <div>
-                                <div class="text-[9px] font-mono font-bold text-pastel-400 mb-1">REV-${rev.id.split('-')[0]}</div>
-                                <div class="text-xs text-pastel-700 font-medium">
-                                    ใช้รหัส: <span class="font-mono font-bold text-pastel-900 bg-pastel-100 px-1 rounded">${rev.code}</span>
-                                </div>
-                                <div class="text-[10px] text-pastel-500 mt-0.5">
-                                    รหัสหลัก: <span class="font-mono">${rev.mainCode}</span>
-                                </div>
-                                <div class="flex space-x-0.5 mt-2">${starsHtml}</div>
+                                <div class="text-xs font-mono font-bold text-[#543B32]">รหัสรีวิว: REV-${rev.id.slice(0, 8)}</div>
+                                <div class="text-xs text-[#543B32] mt-0.5">รหัสคิว: <span class="font-mono font-bold text-[#543B32]">${rev.code}</span> (หลัก: ${rev.mainCode})</div>
+                                <div class="flex space-x-1 mt-1">${starsHtml}</div>
                             </div>
                             <div class="text-right">
-                                <span class="text-[10px] text-pastel-400 font-bold uppercase tracking-wider block">${rev.date}</span>
-                                <span class="text-[9px] font-bold px-2 py-0.5 rounded mt-1 inline-block ${rev.hasComment ? 'bg-amber-100 text-amber-800' : 'bg-pastel-50 text-pastel-500 border border-pastel-100'}">
-                                    ${rev.hasComment ? '💬 มีข้อความ' : '⭐ ดาวเท่านั้น'}
+                                <span class="text-xs text-[#543B32]/60 font-medium block">${rev.date}</span>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md mt-1 inline-block ${rev.hasComment ? 'bg-[#FFFBE6] text-[#543B32]' : 'bg-yellow-50 text-[#e0b450] border border-yellow-200'}">
+                                    ${rev.hasComment ? '💬 เขียนรีวิว' : '⭐ ดาวอย่างเดียว'}
                                 </span>
                             </div>
                         </div>
-                        
-                        ${rev.hasComment 
-                            ? `<div class="bg-cream-50 p-3 rounded-xl border border-pastel-100 text-xs text-pastel-900 font-medium relative z-10"><i class="fa-solid fa-quote-left text-pastel-300 mr-1"></i>${rev.comment}</div>` 
-                            : ''}
+                        <p class="text-xs text-[#543B32] bg-white p-3.5 rounded-2xl border border-[#ebdcca] font-medium">${rev.hasComment ? `"${rev.comment}"` : '<span class="italic text-[#543B32]/50">รีวิวแบบดาวอย่างเดียว (ไม่มีข้อความ)</span>'}</p>
                     </div>
                 `;
             });
@@ -1480,19 +1311,10 @@
         
         async function confirmResetSystem() {
             const password = document.getElementById('reset-pass-input').value;
-            if(!password) return;
-
-            const btn = document.querySelector('#modal-reset-system button:nth-child(2)');
-            const orig = btn.innerText;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-
             const { data: { user } } = await supabaseClient.auth.getUser();
 
             if (!user) {
-                showMessage("แจ้งเตือน", "กรุณาเข้าสู่ระบบก่อน", "error");
-                closeResetModal();
-                btn.innerText = orig; btn.disabled = false;
+                showMessage("แจ้งเตือน", "กรุณายืนยันตัวตนด้วยบัญชีแอดมินก่อนรีเซ็ตระบบ", "error");
                 return;
             }
 
@@ -1502,8 +1324,7 @@
             });
 
             if (signInErr) {
-                showMessage("แจ้งเตือน", "รหัสผ่านไม่ถูกต้อง", "error");
-                btn.innerText = orig; btn.disabled = false;
+                showMessage("แจ้งเตือน", "รหัสผ่านแอดมินไม่ถูกต้อง", "error");
                 return;
             }
 
@@ -1514,8 +1335,7 @@
             await loadDataFromSupabase();
             closeResetModal();
             switchView('customer-home');
-            
-            btn.innerText = orig; btn.disabled = false;
+            showMessage("สำเร็จ", "รีเซ็ตข้อมูลระบบทั้งหมดเรียบร้อยแล้ว", "success");
         }
 
         window.onload = async function() {
